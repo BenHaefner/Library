@@ -1,0 +1,12 @@
+<div class="searchbar">
+    <p>Using Google Book's API, you can search for any book of your choosing!</p>
+    <input #searchBox>
+    <button (click)="getSearched(searchBox.value)">Go!</button>
+    <div *ngIf="searched">
+        <ul class="searchList">
+            <li *ngFor='let item of searched.items'>
+                {{item.volumeInfo.title}}
+            </li>
+        </ul>
+    </div>
+</div>

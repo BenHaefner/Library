@@ -1,6 +1,8 @@
-<body>
-  <app-nav-menu></app-nav-menu>
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
-</body>
+<div class="toolbar">
+  <h3>{{title}}</h3>
+  <nav>
+    <a routerLink="/search">Search</a>
+    <a routerLink="/library">Library</a>
+  </nav>
+</div>
+<router-outlet class="router"></router-outlet>

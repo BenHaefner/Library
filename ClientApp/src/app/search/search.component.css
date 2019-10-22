@@ -1,0 +1,17 @@
+.searchbar {
+    margin-top: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.searchList {
+    margin-top: 10px;
+    list-style-type: none;
+    width: 20em; 
+}
+
+.searchList li {
+    margin-top: 10px;
+    padding: 5px;
+    background: lightgray;
+    border-radius: 5px;
+}
