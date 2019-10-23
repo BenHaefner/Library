@@ -9,7 +9,7 @@ import { Book } from './book';
 })
 export class LibraryService {
 
-  private libraryUrl = 'https://localhost:5001/api/LibraryData';
+  private libraryUrl = window.location.origin + '/api/LibraryData';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -30,6 +30,23 @@ export class LibraryService {
     return this.http.post<Book>(this.libraryUrl, book, this.httpOptions).pipe(
       catchError(this.handleError<Book>('addBook'))
     );
+  }
+
+  // DELETE
+  deleteBook (book: Book | number): Observable<Book> {
+    const id = typeof book === 'number' ? book : book.id;
+    const url = `${this.libraryUrl}/${id}`;
+
+    return this.http.delete<Book>(url, this.httpOptions).pipe(
+      catchError(this.handleError<Book>('deleteBook'))
+    );
+  }
+
+  // PUT
+  updateBook (book: Book): Observable<any> {
+    return this.http.put(this.libraryUrl, book, this.httpOptions).pipe(
+      catchError(this.handleError<any>('updateBook'))
+    )
   }
 
   // TODO: See if there is any way to consolidate this with the function in google.service
