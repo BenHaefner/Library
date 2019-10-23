@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LibraryService } from '../library.service';
+import { Book } from '../book';
 
 @Component({
   selector: 'app-library',
@@ -8,7 +9,7 @@ import { LibraryService } from '../library.service';
 })
 export class LibraryComponent implements OnInit {
 
-  Books: Object[]
+  Books: Book[]
   
   constructor(private libraryService: LibraryService) { }
 

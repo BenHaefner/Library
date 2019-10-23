@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { Book } from './book';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,10 @@ export class LibraryService {
 
   constructor(private http: HttpClient) { }
 
-  getLibrary (): Observable<Object[]>{
-    return this.http.get<Object[]>(this.libraryUrl)
+  getLibrary (): Observable<Book[]>{
+    return this.http.get<Book[]>(this.libraryUrl)
       .pipe(
-        catchError(this.handleError<Object[]>('getLibrary', []))
+        catchError(this.handleError<Book[]>('getLibrary', []))
       );
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleService } from '../google.service';
+import { Book } from '../book';
 
 @Component({
   selector: 'app-search',
@@ -8,7 +9,7 @@ import { GoogleService } from '../google.service';
 })
 export class SearchComponent implements OnInit {
 
-  searched: Object;
+  searched: Book[];
   
   constructor(private googleService: GoogleService) { }
 

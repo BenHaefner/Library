@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { Book } from './book';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +11,15 @@ export class GoogleService {
 
   constructor(public http: HttpClient) { }
 
-  getSearched(searchTerms: String): Observable<Object> {
+  getSearched(searchTerms: String): Observable<Book[]> {
     // TODO: Change this to be more uniform with the rest the other service
     let url = 'https://www.googleapis.com/books/v1/volumes?q=' + searchTerms + '&maxResults=40';
-    return this.http.get(url).pipe(
-      map((res) => {return res;}),
-      catchError(this.handleError<Object>('getSearched', []))
-    )
+    if (!searchTerms.trim()) {
+      return of([]);
+    }
+    return this.http.get<Book[]>(url).pipe(
+      catchError(this.handleError<Book[]>('searchHeroes', []))
+    );
   }
 
   // TODO: Consolidate with the error handling in library.service, so there is less repeating data.
