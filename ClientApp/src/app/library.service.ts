@@ -17,11 +17,19 @@ export class LibraryService {
 
   constructor(private http: HttpClient) { }
 
+  // GET
   getLibrary (): Observable<Book[]>{
     return this.http.get<Book[]>(this.libraryUrl)
       .pipe(
         catchError(this.handleError<Book[]>('getLibrary', []))
       );
+  }
+
+  // POST
+  addBook (book: Book): Observable<Book> {
+    return this.http.post<Book>(this.libraryUrl, book, this.httpOptions).pipe(
+      catchError(this.handleError<Book>('addBook'))
+    );
   }
 
   // TODO: See if there is any way to consolidate this with the function in google.service
