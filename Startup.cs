@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library
 {
@@ -26,6 +27,10 @@ namespace Library
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
+            });
+
+            services.AddDbContext<LibraryContext>(ctx => {
+                ctx.UseSqlServer(Configuration.GetConnectionString("LibraryDatabase"));
             });
         }
 

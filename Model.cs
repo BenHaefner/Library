@@ -6,10 +6,9 @@ namespace Library
 {
     public class LibraryContext : DbContext
     {
+        public LibraryContext(DbContextOptions<LibraryContext> options) : base(options) {}
         public DbSet<Book> Books { get; set; }
- 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer("Server=B-Haefner-L;Database=Library;Trusted_Connection=True");
+    
     }
     public class Book
     {
