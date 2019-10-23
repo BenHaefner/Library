@@ -11,6 +11,7 @@ export class GoogleService {
   constructor(public http: HttpClient) { }
 
   getSearched(searchTerms: String): Observable<Object> {
+    // TODO: Change this to be more uniform with the rest the other service
     let url = 'https://www.googleapis.com/books/v1/volumes?q=' + searchTerms + '&maxResults=40';
     return this.http.get(url).pipe(
       map((res) => {return res;}),
@@ -18,12 +19,11 @@ export class GoogleService {
     )
   }
 
+  // TODO: Consolidate with the error handling in library.service, so there is less repeating data.
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+      console.error(error); 
 
-      // Let the app keep running by returning an empty result.
       return of(result as T);
     };
   }
