@@ -15,7 +15,7 @@ namespace Library
     {
         public int BookId { get; set; }
         public string Title { get; set; }
-        public List<string> Authors { get; set; }
+        public string Author { get; set; }
         public string Isbn { get; set; }
         public string Thumbnail { get; set; }
         public bool  Read { get; set; }
