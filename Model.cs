@@ -9,7 +9,7 @@ namespace Library
         public DbSet<Book> Books { get; set; }
  
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer("Server=B-Haefner-L;Database=Library;TrustedConnection=True");
+            => options.UseSqlServer("Server=B-Haefner-L;Database=Library;Trusted_Connection=True");
     }
     public class Book
     {
