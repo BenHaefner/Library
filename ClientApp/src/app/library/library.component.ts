@@ -9,8 +9,8 @@ import { Book } from '../book';
 export class LibraryComponent implements OnInit {
 
   Books: Book[] = [
-    { title: "Flowers for Algernon", authors: ["Daniel Keyes"] },
-    { title: "Citizen: An American Lyric", authors: ["Claudia Rankine"] }
+    { title: "Flowers for Algernon", author: "Daniel Keyes" },
+    { title: "Citizen: An American Lyric", author: "Claudia Rankine" }
   ]
   
   constructor() { }
