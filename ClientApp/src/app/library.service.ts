@@ -18,7 +18,7 @@ export class LibraryService {
   constructor(private http: HttpClient) { }
 
   // GET
-  getLibrary (): Observable<Book[]>{
+  getLibrary (): Observable<Book[]> {
     return this.http.get<Book[]>(this.libraryUrl)
       .pipe(
         catchError(this.handleError<Book[]>('getLibrary', []))
@@ -31,6 +31,15 @@ export class LibraryService {
     return this.http.get<Book>(url).pipe(
       catchError(this.handleError<Book>(`getBook id=${id}`))
     );
+  }
+
+  getBookNo404<Data>(id: number): Observable<Book> {
+    const url = `${this.libraryUrl}/?id=${id}`;
+    return this.http.get<Book[]>(url)
+      .pipe(
+        map(books => books[0]),
+        catchError(this.handleError<Book>(`getBook id=${id}`))
+      );
   }
 
   // POST
