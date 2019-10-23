@@ -25,6 +25,14 @@ export class LibraryService {
       );
   }
 
+  // GET
+  getBook (id: number): Observable<Book> {
+    const url = `${this.libraryUrl}/${id}`;
+    return this.http.get<Book>(url).pipe(
+      catchError(this.handleError<Book>(`getBook id=${id}`))
+    );
+  }
+
   // POST
   addBook (book: Book): Observable<Book> {
     return this.http.post<Book>(this.libraryUrl, book, this.httpOptions).pipe(
