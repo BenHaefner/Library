@@ -30,10 +30,10 @@ export class SearchComponent implements OnInit {
 
   private convertToBook(toConvert: any): Book {
     let book: Book = {
-      title: toConvert.title,
-      author: toConvert.authors[0],
-      isbn: toConvert.industryIdentifiers[0].identifier,
-      thumbnail: toConvert.imageLinks.smallThumbnail,
+      title: toConvert.title ? toConvert.title : "Unknown",
+      author: toConvert.authors ? toConvert.authors[0] : "Unknown",
+      isbn: toConvert.industryIdentifiers ? toConvert.industryIdentifiers[0].identifier : "Unknown",
+      thumbnail: toConvert.imageLinks ? toConvert.imageLinks.smallThumbnail : "Unknown",
       read: false,
     };
 

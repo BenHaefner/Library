@@ -5,7 +5,7 @@
     <div *ngIf="searched">
         <ul class="searchList">
             <li *ngFor='let item of searched.items'>
-                {{item.volumeInfo.title}}
+                    <app-book-display [book]="convertToBook(item.volumeInfo)" [readonly]=true></app-book-display>
                 <button (click)="addBook(item.volumeInfo)" >Add</button>
             </li>
         </ul>

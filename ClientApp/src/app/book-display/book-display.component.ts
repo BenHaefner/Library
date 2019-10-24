@@ -36,4 +36,5 @@ export class BookDisplayComponent implements OnInit, OnChanges {
   public onSubmit() {
     console.warn(this.bookForm.value);
   }
+  
 }

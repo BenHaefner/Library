@@ -12,3 +12,7 @@
     border-radius: 5px;
     min-height: 320px;
 }
+
+.books li button {
+    margin-top: 10px;
+}
