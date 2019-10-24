@@ -11,7 +11,7 @@ export class GoogleService {
 
   constructor(public http: HttpClient) { }
 
-  getSearched(searchTerms: String): Observable<Object[]> {
+  public getSearched(searchTerms: String): Observable<Object[]> {
     let url = 'https://www.googleapis.com/books/v1/volumes?q=' + searchTerms + '&maxResults=40';
     if (!searchTerms.trim()) {
       return of([]);

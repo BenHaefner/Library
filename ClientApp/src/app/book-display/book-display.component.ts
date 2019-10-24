@@ -18,23 +18,23 @@ export class BookDisplayComponent implements OnInit, OnChanges {
 
   @Input() public book: Book;
 
-  readonly = false;
+  public readonly = false;
 
   constructor(private fb: FormBuilder) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.bookForm.get("title").setValue(this.book.title);
     this.bookForm.get("author").setValue(this.book.author);
     this.bookForm.get("isbn").setValue(this.book.isbn);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     this.bookForm.get("title").setValue(this.book.title);
     this.bookForm.get("author").setValue(this.book.author);
     this.bookForm.get("isbn").setValue(this.book.isbn);
   }
   
-  onSubmit() {
+  public onSubmit() {
     console.warn(this.bookForm.value);
   }
 

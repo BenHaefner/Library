@@ -10,7 +10,7 @@ import { Book } from '../book';
 })
 export class SearchComponent implements OnInit {
 
-  searched: Object[];
+  public searched: Object[];
   
   constructor(
     private googleService: GoogleService, 
@@ -19,15 +19,15 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  getSearched(searchTerms:string): void {
+  public getSearched(searchTerms:string): void {
     this.googleService.getSearched(searchTerms).subscribe(searched => this.searched = searched);
   }
 
-  addBook(book: Book): void {
+  private addBook(book: Book): void {
     this.libraryService.addBook(book).subscribe();
   }
 
-  convertToBook(toConvert: any): void {
+  public convertToBook(toConvert: any): void {
     let book: Book = {
       title: toConvert.title,
       author: toConvert.authors[0],

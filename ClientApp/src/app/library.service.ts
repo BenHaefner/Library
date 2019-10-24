@@ -11,14 +11,14 @@ export class LibraryService {
 
   private libraryUrl = window.location.origin + '/api/LibraryData';
 
-  httpOptions = {
+  private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   constructor(private http: HttpClient) { }
 
   // GET
-  getLibrary (): Observable<Book[]> {
+  public getLibrary (): Observable<Book[]> {
     return this.http.get<Book[]>(this.libraryUrl)
       .pipe(
         catchError(this.handleError<Book[]>('getLibrary', []))
@@ -26,14 +26,14 @@ export class LibraryService {
   }
 
   // GET
-  getBook (id: number): Observable<Book> {
+  public getBook (id: number): Observable<Book> {
     const url = `${this.libraryUrl}/${id}`;
     return this.http.get<Book>(url).pipe(
       catchError(this.handleError<Book>(`getBook id=${id}`))
     );
   }
 
-  getBookNo404<Data>(id: number): Observable<Book> {
+  public getBookNo404<Data>(id: number): Observable<Book> {
     const url = `${this.libraryUrl}/?id=${id}`;
     return this.http.get<Book[]>(url)
       .pipe(
@@ -43,14 +43,14 @@ export class LibraryService {
   }
 
   // POST
-  addBook (book: Book): Observable<Book> {
+  public addBook (book: Book): Observable<Book> {
     return this.http.post<Book>(this.libraryUrl, book, this.httpOptions).pipe(
       catchError(this.handleError<Book>('addBook'))
     );
   }
 
   // DELETE
-  deleteBook (book: Book | number): Observable<Book> {
+  public deleteBook (book: Book | number): Observable<Book> {
     const id = typeof book === 'number' ? book : book.bookId;
     const url = `${this.libraryUrl}/${id}`;
 
@@ -60,7 +60,7 @@ export class LibraryService {
   }
 
   // PUT
-  updateBook (book: Book): Observable<any> {
+  public updateBook (book: Book): Observable<any> {
     return this.http.put(this.libraryUrl, book, this.httpOptions).pipe(
       catchError(this.handleError<any>('updateBook'))
     )
