@@ -51,7 +51,7 @@ export class LibraryService {
 
   // DELETE
   deleteBook (book: Book | number): Observable<Book> {
-    const id = typeof book === 'number' ? book : book.id;
+    const id = typeof book === 'number' ? book : book.bookId;
     const url = `${this.libraryUrl}/${id}`;
 
     return this.http.delete<Book>(url, this.httpOptions).pipe(

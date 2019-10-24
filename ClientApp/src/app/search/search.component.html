@@ -6,6 +6,7 @@
         <ul class="searchList">
             <li *ngFor='let item of searched.items'>
                 {{item.volumeInfo.title}}
+                <button (click)="convertToBook(item.volumeInfo)" >Add</button>
             </li>
         </ul>
     </div>

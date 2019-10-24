@@ -20,4 +20,9 @@ export class LibraryComponent implements OnInit {
   getLibrary(): void {
     this.libraryService.getLibrary().subscribe(books => this.Books = books);
   }
+
+  removeBook(book: Book): void {
+    this.libraryService.deleteBook(book).subscribe();
+    this.Books = this.Books.filter(b=> b !== book);
+  }
 }

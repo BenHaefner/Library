@@ -11,13 +11,13 @@ export class GoogleService {
 
   constructor(public http: HttpClient) { }
 
-  getSearched(searchTerms: String): Observable<Book[]> {
+  getSearched(searchTerms: String): Observable<Object[]> {
     let url = 'https://www.googleapis.com/books/v1/volumes?q=' + searchTerms + '&maxResults=40';
     if (!searchTerms.trim()) {
       return of([]);
     }
     return this.http.get<Book[]>(url).pipe(
-      catchError(this.handleError<Book[]>('searchHeroes', []))
+      catchError(this.handleError<Object[]>('searchHeroes', []))
     );
   }
 
