@@ -17,7 +17,7 @@ export class BookDisplayComponent implements OnInit, OnChanges {
 
   @Input() public book: Book;
 
-  public readonly = false;
+  @Input() public readonly: boolean;
 
   constructor(private fb: FormBuilder) { }
 

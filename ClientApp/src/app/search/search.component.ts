@@ -23,11 +23,12 @@ export class SearchComponent implements OnInit {
     this.googleService.getSearched(searchTerms).subscribe(searched => this.searched = searched);
   }
 
-  private addBook(book: Book): void {
+  public addBook(toConvert: any): void {
+    let book = this.convertToBook(toConvert);
     this.libraryService.addBook(book).subscribe();
   }
 
-  public convertToBook(toConvert: any): void {
+  private convertToBook(toConvert: any): Book {
     let book: Book = {
       title: toConvert.title,
       author: toConvert.authors[0],
@@ -36,6 +37,6 @@ export class SearchComponent implements OnInit {
       read: false,
     };
 
-    this.addBook(book);
+    return book;
   }
 }
