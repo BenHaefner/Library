@@ -1,3 +1,12 @@
 .books{
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.books li {
+    margin-top: 10px;
+    padding: 5px;
+    width: 170px;
+    list-style-type: none;
+    background: lightgray;
+    border-radius: 5px;
+}
