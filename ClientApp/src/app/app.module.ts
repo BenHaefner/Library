@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
 import { LibraryComponent } from './library/library.component';
-import { MatInputModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,7 @@ import { MatInputModule } from '@angular/material';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    MatInputModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
