@@ -1,7 +1,22 @@
-<label>
-  Name:
-  <input type="text" [formControl]="name">
-</label>
-<p>
-  Value: {{ name.value }}
-</p>
+<form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+  <label>
+    Title:
+    <input type="text" formControlName="title" readonly={{readonly}} required>
+  </label>
+
+  <label>
+    Author:
+    <input type="text" formControlName="author" readonly={{readonly}}>
+  </label>
+
+  <label>
+    ISBN:
+    <input type="text" formControlName="isbn" readonly={{readonly}}>
+  </label>
+  <div *ngIf="!readonly">
+    <button type="submit" [disabled]="!bookForm.valid">Save</button>
+  </div>
+  <div *ngIf="readonly">
+    <button type="submit" [disabled]="!bookForm.valid">Add</button>
+  </div>
+</form>

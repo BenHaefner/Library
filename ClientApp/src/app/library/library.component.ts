@@ -9,19 +9,19 @@ import { Book } from '../book';
 })
 export class LibraryComponent implements OnInit {
 
-  Books: Book[]
+  public Books: Book[]
   
   constructor(private libraryService: LibraryService) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.getLibrary()
   }
 
-  getLibrary(): void {
+  private getLibrary(): void {
     this.libraryService.getLibrary().subscribe(books => this.Books = books);
   }
 
-  removeBook(book: Book): void {
+  public removeBook(book: Book): void {
     this.libraryService.deleteBook(book).subscribe();
     this.Books = this.Books.filter(b=> b !== book);
   }

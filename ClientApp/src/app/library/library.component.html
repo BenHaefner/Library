@@ -1,7 +1,7 @@
 <div *ngIf="Books">
     <ul class="books">
         <li *ngFor="let book of Books">
-            {{book.title}} by {{book.author}}
+            <app-book-display [book]="book"></app-book-display>
             <button (click)="removeBook(book)" >Remove</button>
         </li>
     </ul>
