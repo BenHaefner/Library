@@ -9,8 +9,7 @@ import { Book } from '../book';
 })
 export class BookDisplayComponent implements OnInit, OnChanges {
 
-
-  bookForm = this.fb.group({
+  public bookForm = this.fb.group({
     title: ['', Validators.required],
     author: [''],
     isbn: ['']
@@ -37,7 +36,4 @@ export class BookDisplayComponent implements OnInit, OnChanges {
   public onSubmit() {
     console.warn(this.bookForm.value);
   }
-
-
-  
 }

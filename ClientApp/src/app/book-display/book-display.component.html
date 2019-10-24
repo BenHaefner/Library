@@ -1,4 +1,7 @@
 <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+  
+    <img src={{book.thumbnail}}>
+  
   <label>
     Title:
     <input type="text" formControlName="title" [readonly]="readonly" required>
