@@ -35,5 +35,7 @@ export class LibraryComponent implements OnInit {
       width: '250px',
       data: {  }
     });
+
+    dialogRef.afterClosed().subscribe(() => this.getLibrary());
   }
 }

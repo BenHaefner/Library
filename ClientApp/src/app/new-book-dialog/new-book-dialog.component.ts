@@ -41,7 +41,11 @@ export class NewBookDialogComponent implements OnInit {
       thumbnail: this.bookForm.get("thumbnail").value,
       read: false,
     };
+    console.log("Book added")
+    this.libraryService.addBook(book).subscribe(() => this.close());
+  }
 
-    this.dialogRef.close(this.libraryService.addBook(book).subscribe());
+  private close() : void {
+    this.dialogRef.close();
   }
 }
