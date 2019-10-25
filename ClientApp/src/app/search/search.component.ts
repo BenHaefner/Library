@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GoogleService } from '../google.service';
 import { LibraryService } from '../library.service';
 import { Book } from '../book';
+import { FormBuilder } from '@angular/forms';
+
 
 @Component({
   selector: 'app-search',
@@ -10,19 +12,20 @@ import { Book } from '../book';
 })
 export class SearchComponent implements OnInit {
 
+  public searchForm = this.fb.group({
+    search: ['']
+  })
+
   public searched: Object[];
-  
+
   constructor(
-    private googleService: GoogleService, 
+    private fb: FormBuilder,
+    private googleService: GoogleService,
     private libraryService: LibraryService) { }
 
   ngOnInit() {
   }
-
-  public getSearched(searchTerms:string): void {
-    this.googleService.getSearched(searchTerms).subscribe(searched => this.searched = searched);
-  }
-
+  
   private convertToBook(toConvert: any): Book {
     let book: Book = {
       title: toConvert.title ? toConvert.title : "Unknown",
@@ -34,4 +37,11 @@ export class SearchComponent implements OnInit {
 
     return book;
   }
+
+  public onSubmit() {
+    this.googleService.getSearched(this.searchForm.get("search").value).subscribe(
+      searched => this.searched = searched
+    );
+  }
+
 }
