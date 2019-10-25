@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ImageDialogComponent } from './image-dialog/image-dialog.component';
+import { NewBookDialogComponent } from './new-book-dialog/new-book-dialog.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { ImageDialogComponent } from './image-dialog/image-dialog.component';
     SearchComponent,
     LibraryComponent,
     BookDisplayComponent,
-    ImageDialogComponent
+    ImageDialogComponent,
+    NewBookDialogComponent
   ],
   entryComponents:[
     ImageDialogComponent

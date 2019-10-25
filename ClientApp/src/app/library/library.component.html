@@ -1,4 +1,5 @@
 <div *ngIf="books">
+    <button mat-button>New Book</button>
     <ul class="books">
         <li *ngFor="let book of books">
             <app-book-display [book]="book" [readonly]=false (remove)="removeBook(book)"></app-book-display>

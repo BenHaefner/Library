@@ -8,3 +8,8 @@
     float: left;
     list-style-type: none;
 }
+
+button {
+    margin-left: 50px;
+    margin-top: 10px;
+}
