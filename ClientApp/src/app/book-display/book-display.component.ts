@@ -54,8 +54,8 @@ export class BookDisplayComponent implements OnInit, OnChanges {
   }
   
   public removeBook() {
-    this.libraryService.deleteBook(this.book).subscribe();
-    this.remove.emit()
+    this.libraryService.deleteBook(this.book).subscribe(() => this.remove.emit());
   }
+
 
 }

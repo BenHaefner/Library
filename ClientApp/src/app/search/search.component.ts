@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
       title: toConvert.title ? toConvert.title : "Unknown",
       author: toConvert.authors ? toConvert.authors[0] : "Unknown",
       isbn: toConvert.industryIdentifiers ? toConvert.industryIdentifiers[0].identifier : "Unknown",
-      thumbnail: toConvert.imageLinks ? toConvert.imageLinks.smallThumbnail : "Unknown",
+      thumbnail: toConvert.imageLinks ? toConvert.imageLinks.smallThumbnail : "",
       read: false,
     };
 

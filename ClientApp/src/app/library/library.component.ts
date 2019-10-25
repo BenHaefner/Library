@@ -9,7 +9,7 @@ import { Book } from '../book';
 })
 export class LibraryComponent implements OnInit {
 
-  public Books: Book[]
+  public books: Book[]
   
   constructor(private libraryService: LibraryService) { }
 
@@ -18,11 +18,10 @@ export class LibraryComponent implements OnInit {
   }
 
   private getLibrary(): void {
-    this.libraryService.getLibrary().subscribe(books => this.Books = books);
+    this.libraryService.getLibrary().subscribe(books => this.books = books);
   }
 
   public removeBook(book: Book): void {
-    //this.libraryService.deleteBook(book).subscribe();
-    this.Books = this.Books.filter(b=> b !== book);
+    this.books = this.books.filter(b=> b !== book);
   }
 }
