@@ -1,8 +1,7 @@
 <div *ngIf="Books">
     <ul class="books">
         <li *ngFor="let book of Books">
-            <app-book-display [book]="book" [readonly]=false></app-book-display>
-            <button (click)="removeBook(book)" >Remove</button>
+            <app-book-display [book]="book" [readonly]=false (remove)="removeBook(book)"></app-book-display>
         </li>
     </ul>
 </div>

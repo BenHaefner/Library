@@ -22,6 +22,7 @@
       <input class="read" formControlName="read" type="checkbox">
     </label>
     <button class="save" type="submit" [disabled]="!bookForm.valid">Save</button>
+    <button class="remove" type="button" (click)="removeBook()" >Remove</button>
   </div>
   <div *ngIf="readonly">
     <button class="add" type="button" (click)="addBook()">Add</button>

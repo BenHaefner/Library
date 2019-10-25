@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Book } from '../book';
 import { LibraryService } from '../library.service';
@@ -20,6 +20,8 @@ export class BookDisplayComponent implements OnInit, OnChanges {
   @Input() public book: Book;
 
   @Input() public readonly: boolean;
+
+  @Output() public remove = new EventEmitter();
 
   constructor(
     private fb: FormBuilder, 
@@ -51,4 +53,9 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     this.libraryService.addBook(this.book).subscribe();
   }
   
+  public removeBook() {
+    this.libraryService.deleteBook(this.book).subscribe();
+    this.remove.emit()
+  }
+
 }

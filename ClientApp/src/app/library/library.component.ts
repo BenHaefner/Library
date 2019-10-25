@@ -22,7 +22,7 @@ export class LibraryComponent implements OnInit {
   }
 
   public removeBook(book: Book): void {
-    this.libraryService.deleteBook(book).subscribe();
+    //this.libraryService.deleteBook(book).subscribe();
     this.Books = this.Books.filter(b=> b !== book);
   }
 }

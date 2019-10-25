@@ -33,15 +33,6 @@ export class LibraryService {
     );
   }
 
-  public getBookNo404<Data>(id: number): Observable<Book> {
-    const url = `${this.libraryUrl}/?id=${id}`;
-    return this.http.get<Book[]>(url)
-      .pipe(
-        map(books => books[0]),
-        catchError(this.handleError<Book>(`getBook id=${id}`))
-      );
-  }
-
   // POST
   public addBook (book: Book): Observable<Book> {
     return this.http.post<Book>(this.libraryUrl, book, this.httpOptions).pipe(
