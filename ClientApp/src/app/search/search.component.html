@@ -1,9 +1,10 @@
 <div class="searchbar">
-    <p>Using Google Book's API, you can search for any book of your choosing!</p>
     <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
         <label>
-            <input type="text" formControlName="search">
-            <button type="submit">Go!</button>
+            <mat-form-field>
+                <input matInput placeholder="Search" type="text" formControlName="search">
+            </mat-form-field>
+            <button mat-button type="submit">Go!</button>
         </label>
     </form>
     <div *ngIf="searched">
