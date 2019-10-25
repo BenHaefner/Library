@@ -23,11 +23,6 @@ export class SearchComponent implements OnInit {
     this.googleService.getSearched(searchTerms).subscribe(searched => this.searched = searched);
   }
 
-  public addBook(toConvert: any): void {
-    let book = this.convertToBook(toConvert);
-    this.libraryService.addBook(book).subscribe();
-  }
-
   private convertToBook(toConvert: any): Book {
     let book: Book = {
       title: toConvert.title ? toConvert.title : "Unknown",

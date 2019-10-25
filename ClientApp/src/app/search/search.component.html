@@ -5,8 +5,7 @@
     <div *ngIf="searched">
         <ul class="searchList">
             <li *ngFor='let item of searched.items'>
-                    <app-book-display [book]="convertToBook(item.volumeInfo)" [readonly]=true></app-book-display>
-                <button (click)="addBook(item.volumeInfo)" >Add</button>
+                <app-book-display [book]="convertToBook(item.volumeInfo)" [readonly]=true></app-book-display>
             </li>
         </ul>
     </div>

@@ -23,7 +23,7 @@
     </label>
     <button class="save" type="submit" [disabled]="!bookForm.valid">Save</button>
   </div>
-  <!--<div *ngIf="readonly">
-    <button type="submit" [disabled]="!bookForm.valid">Add</button>
-  </div>-->
+  <div *ngIf="readonly">
+    <button class="add" type="button" (click)="addBook()">Add</button>
+  </div>
 </form>

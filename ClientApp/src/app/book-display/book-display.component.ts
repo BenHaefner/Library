@@ -21,7 +21,9 @@ export class BookDisplayComponent implements OnInit, OnChanges {
 
   @Input() public readonly: boolean;
 
-  constructor(private fb: FormBuilder, private libraryService: LibraryService) { }
+  constructor(
+    private fb: FormBuilder, 
+    private libraryService: LibraryService) { }
 
   public ngOnInit() {
     this.bookForm.get("title").setValue(this.book.title);
@@ -43,6 +45,10 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     this.book.isbn = this.bookForm.get("isbn").value;
     this.book.read = this.bookForm.get("read").value;
     this.libraryService.updateBook(this.book).subscribe();
+  }
+
+  public addBook() {
+    this.libraryService.addBook(this.book).subscribe();
   }
   
 }
