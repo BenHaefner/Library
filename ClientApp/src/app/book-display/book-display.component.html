@@ -1,30 +1,38 @@
 <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+  <mat-card class="card">
+    <img src={{book.thumbnail}} (click)="addBook()">
 
-  <img src={{book.thumbnail}} (click)="addBook()">
+    <div class="title">
+      <label>
+        Title:
+        <input type="text" formControlName="title" [readonly]="readonly" required>
+      </label>
+    </div>
 
-  <label>
-    Title:
-    <input type="text" formControlName="title" [readonly]="readonly" required>
-  </label>
+    <div class="author">
+      <label>
+        Author:
+        <input type="text" formControlName="author" [readonly]="readonly">
+      </label>
+    </div>
 
-  <label>
-    Author:
-    <input type="text" formControlName="author" [readonly]="readonly">
-  </label>
+    <div class="isbn">
+      <label>
+        ISBN:
+        <input type="text" formControlName="isbn" [readonly]="readonly">
+      </label>
+    </div>
 
-  <label>
-    ISBN:
-    <input type="text" formControlName="isbn" [readonly]="readonly">
-  </label>
-  <div *ngIf="!readonly">
-    <label>
-      Read:
-      <input class="read" formControlName="read" type="checkbox">
-    </label>
-    <button class="save" type="submit" [disabled]="!bookForm.valid">Save</button>
-    <button class="remove" type="button" (click)="removeBook()" >Remove</button>
-  </div>
-  <div *ngIf="readonly">
-    <button class="add" type="button" (click)="addBook()">Add</button>
-  </div>
+    <div *ngIf="!readonly">
+      <label>
+        Read:
+        <input class="read" formControlName="read" type="checkbox">
+      </label>
+      <button class="save" type="submit" [disabled]="!bookForm.valid">Save</button>
+      <button class="remove" type="button" (click)="removeBook()">Remove</button>
+    </div>
+    <div *ngIf="readonly">
+      <button class="add" type="button" (click)="addBook()">Add</button>
+    </div>
+  </mat-card>
 </form>

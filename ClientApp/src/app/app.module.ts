@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { SearchComponent } from './search/search.component';
 import { LibraryComponent } from './library/library.component';
 import { BookDisplayComponent } from './book-display/book-display.component';
+import { MatCardModule } from '@angular/material/card';
+
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import { BookDisplayComponent } from './book-display/book-display.component';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,23 @@
 form {
     margin-top: 10px;
     font-family: Arial, Helvetica, sans-serif;
-    max-width: 160px;
+    max-width: 300px;
+}
+
+.card {
+    background: lightgray;
+}
+
+.title {
+    margin-top: 10px;
+}
+
+.author {
+    margin-top: 10px;
+}
+
+.isbn {
+    margin-top: 10px;
 }
 
 .read {
@@ -17,7 +33,7 @@ img {
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-    height: 115px;
+    height: 150px;
 }
 
 .add {
