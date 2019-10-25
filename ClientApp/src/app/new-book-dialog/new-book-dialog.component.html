@@ -1,3 +1,22 @@
-<p>
-  new-book-dialog works!
-</p>
+<form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+
+  <mat-form-field>
+    <input matInput placeholder="Title" type="text" formControlName="title" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Author" type="text" formControlName="author">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="ISBN" type="text" formControlName="isbn">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Image URL" type="text" formControlName="thumbnail">
+  </mat-form-field>
+
+  <button mat-button (click)="onNvmClick()">Nevermind</button>
+  <button mat-button (click)="onOkClick()" cdkFocusInitial>Ok</button>
+
+</form>

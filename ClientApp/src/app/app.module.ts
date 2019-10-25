@@ -28,7 +28,8 @@ import { NewBookDialogComponent } from './new-book-dialog/new-book-dialog.compon
     NewBookDialogComponent
   ],
   entryComponents:[
-    ImageDialogComponent
+    ImageDialogComponent,
+    NewBookDialogComponent
   ],
   imports: [
     HttpClientModule,

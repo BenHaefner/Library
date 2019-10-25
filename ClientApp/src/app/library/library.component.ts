@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LibraryService } from '../library.service';
 import { Book } from '../book';
+import { MatDialog } from '@angular/material/dialog';
+import { NewBookDialogComponent } from '../new-book-dialog/new-book-dialog.component';
 
 @Component({
   selector: 'app-library',
@@ -10,8 +12,10 @@ import { Book } from '../book';
 export class LibraryComponent implements OnInit {
 
   public books: Book[]
-  
-  constructor(private libraryService: LibraryService) { }
+
+  constructor(
+    public dialog: MatDialog,
+    private libraryService: LibraryService) { }
 
   public ngOnInit() {
     this.getLibrary()
@@ -22,6 +26,14 @@ export class LibraryComponent implements OnInit {
   }
 
   public removeBook(book: Book): void {
-    this.books = this.books.filter(b=> b !== book);
+    this.books = this.books.filter(b => b !== book);
+  }
+
+  public openDialog(): void {
+
+    const dialogRef = this.dialog.open(NewBookDialogComponent, {
+      width: '250px',
+      data: {  }
+    });
   }
 }
