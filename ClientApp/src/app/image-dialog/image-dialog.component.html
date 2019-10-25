@@ -1,3 +1,13 @@
-<p>
-  image-dialog works!
-</p>
+<h1 mat-dialog-title>Image source</h1>
+<div mat-dialog-content>
+  <p>Please link the new image source.</p>
+  <form [formGroup]="thumbnailForm">
+    <mat-form-field>
+      <input matInput placeholder="Paste link here" formControlName="thumbnail">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNvmClick()">Nevermind</button>
+  <button mat-button (click)="onOkClick()" cdkFocusInitial>Ok</button>
+</div>

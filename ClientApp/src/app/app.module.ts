@@ -25,6 +25,9 @@ import { ImageDialogComponent } from './image-dialog/image-dialog.component';
     BookDisplayComponent,
     ImageDialogComponent
   ],
+  entryComponents:[
+    ImageDialogComponent
+  ],
   imports: [
     HttpClientModule,
     BrowserModule,

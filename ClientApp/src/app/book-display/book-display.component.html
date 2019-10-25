@@ -1,7 +1,7 @@
 <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
   <mat-card class="card">
 
-    <img src={{book.thumbnail}} (click)="addBook()">
+    <img src={{book.thumbnail}} (click)="openDialog()">
 
     <mat-card-content>
       <div class="title">

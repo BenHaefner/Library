@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, OnChanges, SimpleChanges, EventEmitte
 import { FormBuilder, Validators } from '@angular/forms';
 import { Book } from '../book';
 import { LibraryService } from '../library.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
 
 @Component({
   selector: 'app-book-display',
@@ -24,7 +26,8 @@ export class BookDisplayComponent implements OnInit, OnChanges {
   @Output() public remove = new EventEmitter();
 
   constructor(
-    private fb: FormBuilder, 
+    public dialog: MatDialog,
+    private fb: FormBuilder,
     private libraryService: LibraryService) { }
 
   public ngOnInit() {
@@ -40,7 +43,7 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     this.bookForm.get("isbn").setValue(this.book.isbn);
     this.bookForm.get("read").setValue(this.book.read);
   }
-  
+
   public onSubmit() {
     this.book.title = this.bookForm.get("title").value;
     this.book.author = this.bookForm.get("author").value;
@@ -52,9 +55,22 @@ export class BookDisplayComponent implements OnInit, OnChanges {
   public addBook() {
     this.libraryService.addBook(this.book).subscribe();
   }
-  
+
   public removeBook() {
     this.libraryService.deleteBook(this.book).subscribe(() => this.remove.emit());
   }
 
+  public openDialog(): void {
+
+    if (!this.readonly) {
+      const dialogRef = this.dialog.open(ImageDialogComponent, {
+        width: '250px',
+        data: { thumbnail: this.book.thumbnail }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        this.book.thumbnail = result;
+      });
+    }
+  }
 }

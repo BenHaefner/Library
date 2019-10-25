@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Book } from '../book';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-image-dialog',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImageDialogComponent implements OnInit {
 
-  constructor() { }
+  public thumbnailForm = this.fb.group({
+    thumbnail: ['']
+  })
 
-  ngOnInit() {
+  constructor(
+    private fb: FormBuilder,
+    public dialogRef: MatDialogRef<ImageDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    dialogRef.disableClose = true;
   }
 
+  public ngOnInit() {
+  }
+
+  public onNvmClick(): void {
+    this.dialogRef.close(this.data.thumbnail);
+  }
+
+  public onOkClick(url: string): void {
+    this.dialogRef.close(this.thumbnailForm.get("thumbnail").value);
+  }
 }
