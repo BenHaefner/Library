@@ -61,7 +61,8 @@ export class LibraryService {
 
   // PUT
   public updateBook (book: Book): Observable<any> {
-    return this.http.put(this.libraryUrl, book, this.httpOptions).pipe(
+    const url = `${this.libraryUrl}/${book.bookId}`;
+    return this.http.put(url, book, this.httpOptions).pipe(
       catchError(this.handleError<any>('updateBook'))
     )
   }

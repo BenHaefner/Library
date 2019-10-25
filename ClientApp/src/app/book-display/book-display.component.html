@@ -17,7 +17,11 @@
     <input type="text" formControlName="isbn" [readonly]="readonly">
   </label>
   <div *ngIf="!readonly">
-    <button type="submit" [disabled]="!bookForm.valid">Save</button>
+    <label>
+      Read:
+      <input class="read" formControlName="read" type="checkbox">
+    </label>
+    <button class="save" type="submit" [disabled]="!bookForm.valid">Save</button>
   </div>
   <!--<div *ngIf="readonly">
     <button type="submit" [disabled]="!bookForm.valid">Add</button>
