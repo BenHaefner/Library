@@ -1,6 +1,6 @@
 <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
 
-  <img src={{book.thumbnail}}>
+  <img src={{book.thumbnail}} (click)="addBook()">
 
   <label>
     Title:
