@@ -4,6 +4,15 @@ form {
     max-width: 300px;
 }
 
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: 150px;
+}
+
+
 .card {
     background: lightgray;
 }
@@ -27,15 +36,6 @@ form {
 .save {
     margin: 10px 70px 10px 0px;
 }
-
-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    height: 150px;
-}
-
 .add {
     margin-top: 10px;
 }

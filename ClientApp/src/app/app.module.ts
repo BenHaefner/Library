@@ -8,6 +8,8 @@ import { SearchComponent } from './search/search.component';
 import { LibraryComponent } from './library/library.component';
 import { BookDisplayComponent } from './book-display/book-display.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+
 
 
 
@@ -23,7 +25,8 @@ import { MatCardModule } from '@angular/material/card';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
