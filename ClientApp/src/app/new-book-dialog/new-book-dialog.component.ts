@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { LibraryService } from '../library.service';
 import { Book } from '../book';
+import { Wrapper } from './wrapper';
 
 @Component({
   selector: 'app-new-book-dialog',
@@ -30,7 +31,10 @@ export class NewBookDialogComponent implements OnInit {
   }
 
   public onNvmClick(): void {
-    this.dialogRef.close();
+    let wrapper: Wrapper = {
+      hasBook: false
+    }
+    this.dialogRef.close(wrapper);
   }
 
   public onOkClick(): void {
@@ -41,11 +45,12 @@ export class NewBookDialogComponent implements OnInit {
       thumbnail: this.bookForm.get("thumbnail").value,
       read: false,
     };
-    console.log("Book added")
-    this.libraryService.addBook(book).subscribe(() => this.close());
-  }
 
-  private close() : void {
-    this.dialogRef.close();
+    let wrapper: Wrapper = {
+      hasBook: true,
+      book: book
+    }
+
+    this.dialogRef.close(wrapper);
   }
 }

@@ -3,6 +3,7 @@ import { LibraryService } from '../library.service';
 import { Book } from '../book';
 import { MatDialog } from '@angular/material/dialog';
 import { NewBookDialogComponent } from '../new-book-dialog/new-book-dialog.component';
+import { Wrapper } from '../new-book-dialog/wrapper';
 
 @Component({
   selector: 'app-library',
@@ -33,9 +34,18 @@ export class LibraryComponent implements OnInit {
 
     const dialogRef = this.dialog.open(NewBookDialogComponent, {
       width: '250px',
-      data: {  }
+      data: {}
     });
 
-    dialogRef.afterClosed().subscribe(() => this.getLibrary());
+    var wrapper: Wrapper;
+
+    dialogRef.afterClosed().subscribe(result => {
+      wrapper = result as Wrapper;
+      if (wrapper.hasBook) {
+        this.libraryService.addBook(wrapper.book).subscribe(() => this.getLibrary())
+      }
+    });
+
+
   }
 }
