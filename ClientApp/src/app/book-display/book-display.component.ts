@@ -32,21 +32,21 @@ export class BookDisplayComponent implements OnInit, OnChanges {
 
   public ngOnInit() {
     this.bookForm.get("title").setValue(this.book.title);
-    this.bookForm.get("author").setValue(this.book.author);
+    this.bookForm.get("author").setValue(this.book.authors);
     this.bookForm.get("isbn").setValue(this.book.isbn);
     this.bookForm.get("read").setValue(this.book.read);
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
     this.bookForm.get("title").setValue(this.book.title);
-    this.bookForm.get("author").setValue(this.book.author);
+    this.bookForm.get("author").setValue(this.book.authors);
     this.bookForm.get("isbn").setValue(this.book.isbn);
     this.bookForm.get("read").setValue(this.book.read);
   }
 
   public onSubmit() {
     this.book.title = this.bookForm.get("title").value;
-    this.book.author = this.bookForm.get("author").value;
+    this.book.authors = this.bookForm.get("author").value;
     this.book.isbn = this.bookForm.get("isbn").value;
     this.book.read = this.bookForm.get("read").value;
     this.libraryService.updateBook(this.book).subscribe();

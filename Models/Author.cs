@@ -12,7 +12,7 @@ namespace Library
         //Foreign key for Book
         [ForeignKey("Book")]
         public int BookId { get; set; }
-        public Book Book { get; set; }
+        public virtual Book Book { get; set; }
 
     }
 }

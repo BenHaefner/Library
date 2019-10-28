@@ -40,7 +40,7 @@ export class NewBookDialogComponent implements OnInit {
   public onOkClick(): void {
     let book: Book = {
       title: this.bookForm.get("title").value,
-      author: this.bookForm.get("author").value,
+      authors: this.bookForm.get("author").value,
       isbn: this.bookForm.get("isbn").value,
       thumbnail: this.bookForm.get("thumbnail").value,
       read: false,

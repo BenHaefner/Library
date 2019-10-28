@@ -11,7 +11,7 @@ namespace Library
         public string Thumbnail { get; set; }
         public bool Read { get; set; }
 
-        public List<Author> Authors { get; set; }
+        public virtual List<Author> Authors { get; set; }
 
     }
 }
