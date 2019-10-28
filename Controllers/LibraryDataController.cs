@@ -24,14 +24,14 @@ namespace Library.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
-            return await _context.Books.ToListAsync();
+            return await _context.Books.Include(b => b.Authors).ToListAsync();
         }
 
         // GET: api/LibraryData/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBook(int id)
         {
-            var book = await _context.Books.FindAsync(id);
+            var book = await _context.Books.Include(b => b.Authors).FirstOrDefaultAsync(b => b.BookId == id);
 
             if (book == null)
             {
@@ -50,23 +50,60 @@ namespace Library.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(book).State = EntityState.Modified;
+            Book existingBook = await _context.Books
+                .Where(b => b.BookId == book.BookId)
+                .Include(b => b.Authors)
+                .SingleOrDefaultAsync();
 
-            try
+            if (existingBook != null)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookExists(id))
+
+                _context.Entry(existingBook).CurrentValues.SetValues(book);
+
+                foreach (Author author in existingBook.Authors.ToList())
                 {
-                    return NotFound();
+                    if (!book.Authors.Any(a => a.AuthorID == author.AuthorID))
+                        _context.Author.Remove(author);
                 }
-                else
+
+                foreach (Author authorModel in book.Authors)
                 {
-                    throw;
+                    var existingAuthor = existingBook.Authors
+                    .Where(a => a.AuthorID == authorModel.AuthorID)
+                    .SingleOrDefault();
+
+                    if (existingAuthor != null)
+                    {
+                        _context.Entry(existingAuthor).CurrentValues.SetValues(authorModel);
+                    }
+                    else
+                    {
+                        var newAuthor = new Author
+                        {
+                            Name = authorModel.Name
+                        };
+                        existingBook.Authors.Add(newAuthor);
+                    }
+                }
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BookExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
             }
+
+
 
             return NoContent();
         }
