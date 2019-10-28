@@ -3,6 +3,7 @@ import { GoogleService } from '../google.service';
 import { LibraryService } from '../library.service';
 import { Book } from '../book';
 import { FormBuilder } from '@angular/forms';
+import { Author } from '../author';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class SearchComponent implements OnInit {
   private convertToBook(toConvert: any): Book {
     let book: Book = {
       title: toConvert.title ? toConvert.title : "Unknown",
-      authors: toConvert.authors ? toConvert.authors[0] : "Unknown",
+      authors: toConvert.authors ? this.extractAuthors(toConvert.authors) : null,
       isbn: toConvert.industryIdentifiers ? toConvert.industryIdentifiers[0].identifier : "Unknown",
       thumbnail: toConvert.imageLinks ? toConvert.imageLinks.smallThumbnail : "",
       read: false,
@@ -42,6 +43,15 @@ export class SearchComponent implements OnInit {
     this.googleService.getSearched(this.searchForm.get("search").value).subscribe(
       searched => this.searched = searched
     );
+  }
+
+  private extractAuthors(toExtract: any): Author[] {
+    var list: Array<Author> = [];
+    toExtract.forEach(extractedName => {
+      let item: Author = {name: extractedName};
+      list.push(item);
+    });
+    return list;
   }
 
 }

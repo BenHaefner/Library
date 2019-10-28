@@ -1,7 +1,9 @@
+import { Author } from './author';
+
 export class Book {
     bookId?: number;
     title: string;
-    authors: string[];
+    authors: Author[];
     isbn: string;
     read: boolean;
     thumbnail: string;

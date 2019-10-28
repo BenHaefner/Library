@@ -32,14 +32,14 @@ export class BookDisplayComponent implements OnInit, OnChanges {
 
   public ngOnInit() {
     this.bookForm.get("title").setValue(this.book.title);
-    this.bookForm.get("author").setValue(this.book.authors);
+    this.bookForm.get("author").setValue(this.representAuthors());
     this.bookForm.get("isbn").setValue(this.book.isbn);
     this.bookForm.get("read").setValue(this.book.read);
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
     this.bookForm.get("title").setValue(this.book.title);
-    this.bookForm.get("author").setValue(this.book.authors);
+    this.bookForm.get("author").setValue(this.representAuthors());
     this.bookForm.get("isbn").setValue(this.book.isbn);
     this.bookForm.get("read").setValue(this.book.read);
   }
@@ -72,5 +72,16 @@ export class BookDisplayComponent implements OnInit, OnChanges {
         this.book.thumbnail = result;
       });
     }
+  }
+
+  // TODO: Remove when better representation is available
+  private representAuthors(): String {
+    var listOfAuthors: string = ''
+    if (this.book.authors != null) {
+      this.book.authors.forEach(author => {
+        listOfAuthors = listOfAuthors + ' ' + author.name;
+      });
+    }
+    return listOfAuthors;
   }
 }
