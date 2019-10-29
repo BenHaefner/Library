@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormArray, Validators, Form } from '@angular/forms';
 import { Book } from '../book';
 import { LibraryService } from '../library.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
+import { Author } from '../author';
 
 @Component({
   selector: 'app-book-display',
@@ -14,10 +15,14 @@ export class BookDisplayComponent implements OnInit, OnChanges {
 
   public bookForm = this.fb.group({
     title: ['', Validators.required],
-    author: [''],
+    authors: this.fb.array([]),
     isbn: [''],
     read: [false]
   })
+
+  get authors() {
+    return this.bookForm.get('authors') as FormArray;
+  }
 
   @Input() public book: Book;
 
@@ -32,21 +37,20 @@ export class BookDisplayComponent implements OnInit, OnChanges {
 
   public ngOnInit() {
     this.bookForm.get("title").setValue(this.book.title);
-    this.bookForm.get("author").setValue(this.representAuthors());
+    this.representAuthors();
     this.bookForm.get("isbn").setValue(this.book.isbn);
     this.bookForm.get("read").setValue(this.book.read);
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
     this.bookForm.get("title").setValue(this.book.title);
-    this.bookForm.get("author").setValue(this.representAuthors());
     this.bookForm.get("isbn").setValue(this.book.isbn);
     this.bookForm.get("read").setValue(this.book.read);
   }
 
   public onSubmit() {
     this.book.title = this.bookForm.get("title").value;
-    this.book.authors = this.bookForm.get("author").value;
+    this.updateAuthors();
     this.book.isbn = this.bookForm.get("isbn").value;
     this.book.read = this.bookForm.get("read").value;
     this.libraryService.updateBook(this.book).subscribe();
@@ -75,13 +79,37 @@ export class BookDisplayComponent implements OnInit, OnChanges {
   }
 
   // TODO: Remove when better representation is available
-  private representAuthors(): String {
-    var listOfAuthors: string = ''
-    if (this.book.authors != null) {
+  private representAuthors(): void {
+    if (this.book.authors.length > 0) {
       this.book.authors.forEach(author => {
-        listOfAuthors = listOfAuthors + ' ' + author.name;
+        this.authors.push(this.fb.control(author.name))
       });
     }
-    return listOfAuthors;
+    else {
+      this.authors.push(this.fb.control(''))
+    }
+  }
+
+  private updateAuthors(): void {
+    if (this.authors.controls.length >= this.book.authors.length) {
+      for (let index = 0; index < this.authors.controls.length; index++) {
+        if (this.book.authors[index] != null) {
+          this.book.authors[index].name = this.authors.controls[index].value;
+        } else {
+          let newAuthor: Author = {
+            name: this.authors.controls[index].value
+          };
+          this.book.authors.push(newAuthor);
+        }
+      }
+    } else {
+      for (let index = 0; index < this.book.authors.length; index++) {
+        if (this.authors.controls[index] != null) {
+          this.book.authors[index].name = this.authors.controls[index].value;
+        } else {
+          this.book.authors.splice(index, 1)
+        }
+      }
+    }
   }
 }

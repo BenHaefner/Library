@@ -57,7 +57,7 @@ namespace Library.Controllers
 
             if (existingBook != null)
             {
-
+                // TODO: Explicitly set exisingBook to book values
                 _context.Entry(existingBook).CurrentValues.SetValues(book);
 
                 foreach (Author author in existingBook.Authors.ToList())
@@ -74,6 +74,7 @@ namespace Library.Controllers
 
                     if (existingAuthor != null)
                     {
+                        // TODO: Explicitly set exisingAuthor to book values
                         _context.Entry(existingAuthor).CurrentValues.SetValues(authorModel);
                     }
                     else
