@@ -42,16 +42,8 @@ img:hover{
     float: right;
 }
 
-.save:focus {
-    background: grey;
-}
-
 .add {
     margin-top: 10px;
-}
-
-.add:focus {
-    background: grey;
 }
 
 .addAuthor {

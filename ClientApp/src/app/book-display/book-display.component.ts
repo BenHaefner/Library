@@ -5,6 +5,7 @@ import { LibraryService } from '../library.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
 import { Author } from '../models/author';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-book-display',
@@ -58,7 +59,8 @@ export class BookDisplayComponent implements OnInit, OnChanges {
   constructor(
     public dialog: MatDialog,
     private fb: FormBuilder,
-    private libraryService: LibraryService) { }
+    private libraryService: LibraryService,
+    private snackBar: MatSnackBar) { }
 
   public ngOnInit() {
     this.bookForm.get("title").setValue(this.book.title);
@@ -82,7 +84,9 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     this.updateAuthors();
     this.book.isbn = this.bookForm.get("isbn").value;
     this.book.read = this.bookForm.get("read").value;
-    this.libraryService.updateBook(this.book).subscribe();
+    this.libraryService.updateBook(this.book).subscribe(() => 
+    this.openSnackBar("Saved", "Your changes have been saved.")
+    );
   }
 
   /**
@@ -90,7 +94,9 @@ export class BookDisplayComponent implements OnInit, OnChanges {
    * to the library database.
    */
   public addBook() {
-    this.libraryService.addBook(this.book).subscribe();
+    this.libraryService.addBook(this.book).subscribe(() => 
+    this.openSnackBar("Added", "The book has been added to the library.")
+    );
   }
 
   /**
@@ -209,5 +215,14 @@ export class BookDisplayComponent implements OnInit, OnChanges {
   public addAuthor(): void {
     this.authors.controls.push(this.fb.control(''));
     this.updateAuthors();
+  }
+
+  /**
+   * A function to open a snackbar to give the user some message.
+   */
+  private openSnackBar(message: string, subheading: string) {
+    this.snackBar.open(message, subheading, {
+      duration: 2500,
+    });
   }
 }

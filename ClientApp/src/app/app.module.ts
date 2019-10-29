@@ -19,6 +19,7 @@ import { NewBookDialogComponent } from './new-book-dialog/new-book-dialog.compon
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import {MatToolbarModule, MatToolbar} from '@angular/material/toolbar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import {MatToolbarModule, MatToolbar} from '@angular/material/toolbar';
     MatDialogModule,
     MatExpansionModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
