@@ -107,13 +107,16 @@ export class BookDisplayComponent implements OnInit, OnChanges {
    * of the component.
    */
   public openDialog(): void {
-
+    // Do not allow a dialog to open if the component is readonly
     if (!this.readonly) {
+      // Set dialog to be opened to be of type ImageDialogComponent,
+      // set the width to 250px, and send the current thumbnail as 
+      // the data being sent to the dialog.
       const dialogRef = this.dialog.open(ImageDialogComponent, {
         width: '250px',
         data: { thumbnail: this.book.thumbnail }
       });
-
+      // After the dialog closes, set the books thumbnail to be the result.
       dialogRef.afterClosed().subscribe(result => {
         this.book.thumbnail = result;
       });
@@ -126,38 +129,64 @@ export class BookDisplayComponent implements OnInit, OnChanges {
    * an empty author box if no authors exist yet.
    */
   private representAuthors(): void {
-    if (this.book.authors!= null && this.book.authors.length > 0) {
+    // In the case that the "book" variable has authors already
+    if (this.book.authors != null && this.book.authors.length > 0) {
+      //Interate over those authors and push them to the authors form array.
       this.book.authors.forEach(author => {
         this.authors.push(this.fb.control(author.name))
       });
     }
+    // In the case there are no authors in the "book" variable, push a blank
+    // control to the form array.
     else {
       this.authors.push(this.fb.control(''))
     }
   }
 
+  // I dont like this solution. Consider changing.
   /**
    * A function to update the "book" variables "author" array.
    */
   private updateAuthors(): void {
+    /* In order to perserve data like authorID and bookID we cant just move all of the 
+    data from the form array to the "book" variables author array. If there are more 
+    books in the "book" variables than the form array, we need to remove those extra entries,
+    and if the opposite is true, we need to add those extra entries. Therefore two different 
+    operations will be done based on which is longer. */
     if (this.authors.controls.length >= this.book.authors.length) {
+      // Iterate for every control in the form array
       for (let index = 0; index < this.authors.controls.length; index++) {
+        // If there is a valid entry in the form control, and a corresponding entry in the 
+        // books array, set the book entrys name as the entry in the form control.
         if (this.book.authors[index] != null && this.authors.controls[index].value.length > 0) {
           this.book.authors[index].name = this.authors.controls[index].value;
-        } else if (this.authors.controls[index].value.length > 0) {
+        }
+        // Otherwise if there is no corresponding entry in the book variable to the control's entry,
+        // but that entry is still valid, then push that form array entry to the book's array 
+        else if (this.authors.controls[index].value.length > 0) {
           let newAuthor: Author = {
             name: this.authors.controls[index].value
           };
           this.book.authors.push(newAuthor);
-        } else {
+        } 
+        // Otherwise if the entry is invalid but the corresponding entry in the book variable exists,
+        // then get rid of that entry in the book variable.
+        else {
           this.book.authors.splice(index, 1)
         }
       }
-    } else {
+    } 
+    else {
+      // Iterate for every control in the book variables author array
       for (let index = 0; index < this.book.authors.length; index++) {
+        // If the form arrays corresponding entry does not exist or is invalid, set that form array control
+        // values name as the name of the corresponding book variable.
         if (this.authors.controls[index] != null && this.authors.controls[index].value.length > 0) {
           this.book.authors[index].name = this.authors.controls[index].value;
-        } else if(this.authors.controls[index] == null) {
+        } 
+        // If we've copied all of the author names from the author controls in the form array,
+        // but there are still items in the book variables author array, remove those extra entries.
+        else if (this.authors.controls[index] == null) {
           this.book.authors.splice(index, 1)
         }
       }

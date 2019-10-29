@@ -49,9 +49,11 @@ export class NewBookDialogComponent implements OnInit {
    * being made.
    */
   public onNvmClick(): void {
+    // Create a wrapper that indicates to the parent no book was created.
     let wrapper: Wrapper = {
       hasBook: false
     }
+    // Close the dialof and send wrapper to the parent.
     this.dialogRef.close(wrapper);
   }
 
@@ -60,8 +62,10 @@ export class NewBookDialogComponent implements OnInit {
    * edits being made.
    */
   public onOkClick(): void {
+    // Create list of Authors to be added to the book to be added
     let authorList: Author[] = [];
-
+    // Iteration over form array controls to check if there is any
+    // data to be added to the authorList.
     this.authors.controls.forEach(author => {
       if (author.value != null && author.value.length > 0) {
         let newAuthor: Author = {
@@ -70,7 +74,7 @@ export class NewBookDialogComponent implements OnInit {
         authorList.push(newAuthor);
       }
     })
-
+    // Create a book to be added from the specified data.
     let book: Book = {
       title: this.bookForm.get("title").value,
       authors: authorList,
@@ -78,12 +82,13 @@ export class NewBookDialogComponent implements OnInit {
       thumbnail: this.bookForm.get("thumbnail").value,
       read: false,
     };
-
+    // Create a wrapper containing a book, and an indicator to the parent
+    // that a book has been created and is in this wrapper .
     let wrapper: Wrapper = {
       hasBook: true,
       book: book
     }
-
+    // Close this dialog and send wrapper to the parent.
     this.dialogRef.close(wrapper);
   }
 
@@ -91,7 +96,7 @@ export class NewBookDialogComponent implements OnInit {
    * A function to remove a form control from the form array "authors".
    * 
    * @param index The index of the form control to be removed from
-   * the form array
+   * the form array.
    */
   public removeAuthor(index: number): void {
     this.authors.controls.splice(index, 1);

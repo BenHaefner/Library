@@ -48,14 +48,16 @@ export class LibraryComponent implements OnInit {
    * added to the book library.
    */
   public openDialog(): void {
-
+    // Set dialog to be opened to be a NewBookDialogComponent,
+    // set the width to 300px, and send no data.
     const dialogRef = this.dialog.open(NewBookDialogComponent, {
       width: '300px',
       data: {}
     });
-
+    // Create a wrapper to contain data returned from dialog
     var wrapper: Wrapper;
-
+    // After the close of the dialog, if the wrapper returned has a 
+    // book, add that book to the library, then update the library.
     dialogRef.afterClosed().subscribe(result => {
       wrapper = result as Wrapper;
       if (wrapper.hasBook) {
