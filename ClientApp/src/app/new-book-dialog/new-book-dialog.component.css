@@ -1,0 +1,12 @@
+mat-form-field {
+    display: inline;
+}
+
+.addAuthor {
+    text-align: right;
+    display: inline;
+}
+
+.removeAuthor {
+    display: inline;
+}

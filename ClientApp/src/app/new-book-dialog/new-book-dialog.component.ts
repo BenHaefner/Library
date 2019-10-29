@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { LibraryService } from '../library.service';
 import { Book } from '../book';
@@ -14,11 +14,17 @@ export class NewBookDialogComponent implements OnInit {
 
   public bookForm = this.fb.group({
     title: ['', Validators.required],
-    author: [''],
+    authors: this.fb.array([
+      this.fb.control('')
+    ]),
     isbn: [''],
     thumbnail: [''],
     read: [false]
   })
+
+  public get authors() {
+    return this.bookForm.get('authors') as FormArray;
+  }
 
   constructor(
     private libraryService: LibraryService,
@@ -52,5 +58,13 @@ export class NewBookDialogComponent implements OnInit {
     }
 
     this.dialogRef.close(wrapper);
+  }
+
+  public removeAuthor(index: number): void {
+    this.authors.controls.splice(index, 1);
+  }
+
+  public addAuthor(): void {
+    this.authors.controls.push(this.fb.control(''));
   }
 }

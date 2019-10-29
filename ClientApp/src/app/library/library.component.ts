@@ -33,7 +33,7 @@ export class LibraryComponent implements OnInit {
   public openDialog(): void {
 
     const dialogRef = this.dialog.open(NewBookDialogComponent, {
-      width: '250px',
+      width: '300px',
       data: {}
     });
 

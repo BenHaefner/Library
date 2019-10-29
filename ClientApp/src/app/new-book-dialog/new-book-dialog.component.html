@@ -4,9 +4,26 @@
     <input matInput placeholder="Title" type="text" formControlName="title" required>
   </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Author" type="text" formControlName="author">
-  </mat-form-field>
+  <div formArrayName="authors" class="author">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Authors
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngFor="let author of authors.controls; let i=index">
+        <mat-form-field>
+          <input matInput placeholder="Author" type="text" [formControlName]="i" [readonly]="readonly">
+        </mat-form-field>
+        <div class="removeAuthor" *ngIf="authors.controls.length!=1">
+          <button mat-button type="button" (click)="removeAuthor(i)">Remove</button>
+        </div>
+        <div class="addAuthor" *ngIf="i==authors.controls.length-1">
+          <button mat-button type="button" (click)="addAuthor()">Add</button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </div>
 
   <mat-form-field>
     <input matInput placeholder="ISBN" type="text" formControlName="isbn">
