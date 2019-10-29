@@ -24,6 +24,7 @@ namespace Library.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
+            // Return all books along with each books author list.
             return await _context.Books.Include(b => b.Authors).ToListAsync();
         }
 
@@ -31,6 +32,7 @@ namespace Library.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBook(int id)
         {
+            // Return specific book along with that books author list.
             var book = await _context.Books.Include(b => b.Authors).FirstOrDefaultAsync(b => b.BookId == id);
 
             if (book == null)
@@ -49,7 +51,7 @@ namespace Library.Controllers
             {
                 return BadRequest();
             }
-
+            // Get book that exists in context corresponding to the book being updated.
             Book existingBook = await _context.Books
                 .Where(b => b.BookId == book.BookId)
                 .Include(b => b.Authors)
@@ -57,26 +59,31 @@ namespace Library.Controllers
 
             if (existingBook != null)
             {
-                // TODO: Explicitly set exisingBook to book values
-                _context.Entry(existingBook).CurrentValues.SetValues(book);
-
+                existingBook.Title = book.Title;
+                existingBook.Isbn = book.Isbn;
+                existingBook.Thumbnail = book.Thumbnail;
+                existingBook.Read = book.Read;
+                // Iterate over every author in the book from the context.
                 foreach (Author author in existingBook.Authors.ToList())
                 {
+                    // If an author doesnt exist in the new book that did exist in the old book,
+                    // delete that author.
                     if (!book.Authors.Any(a => a.AuthorID == author.AuthorID))
                         _context.Author.Remove(author);
                 }
-
+                //Iterate over every author in the updated book.
                 foreach (Author authorModel in book.Authors)
                 {
+                    // Get the existing author from the context's book that matches the current author.
                     var existingAuthor = existingBook.Authors
                     .Where(a => a.AuthorID == authorModel.AuthorID)
                     .SingleOrDefault();
-
+                    // If it exists, grab all of the values to be updated
                     if (existingAuthor != null)
                     {
-                        // TODO: Explicitly set exisingAuthor to book values
-                        _context.Entry(existingAuthor).CurrentValues.SetValues(authorModel);
+                        existingAuthor.Name = authorModel.Name;
                     }
+                    // Otherwise, the entry is new, and you should add that entry to the existing book.
                     else
                     {
                         var newAuthor = new Author
