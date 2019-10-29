@@ -17,6 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 import { NewBookDialogComponent } from './new-book-dialog/new-book-dialog.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     BrowserAnimationsModule,
     MatCheckboxModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

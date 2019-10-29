@@ -78,7 +78,6 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     }
   }
 
-  // TODO: Remove when better representation is available
   private representAuthors(): void {
     if (this.book.authors.length > 0) {
       this.book.authors.forEach(author => {
@@ -111,5 +110,13 @@ export class BookDisplayComponent implements OnInit, OnChanges {
         }
       }
     }
+  }
+
+  public removeAuthor(): void {
+    
+  }
+
+  public addAuthor(): void {
+    
   }
 }
