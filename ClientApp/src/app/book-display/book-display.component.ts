@@ -13,6 +13,12 @@ import { Author } from '../models/author';
 })
 export class BookDisplayComponent implements OnInit, OnChanges {
 
+  /**
+   * A form to contain any existing informantion from the 
+   * book object, or any data entered by the user about that
+   * book object, including a form array in order to add 
+   * authors to the object.
+   */
   public bookForm = this.fb.group({
     title: ['', Validators.required],
     authors: this.fb.array([]),
@@ -20,14 +26,33 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     read: [false]
   })
 
+  /**
+   * A get function to easily retrieve the form array
+   * "authors".
+   */
   public get authors() {
     return this.bookForm.get('authors') as FormArray;
   }
 
+  /**
+   * An input from the parent component of type Book
+   * that contains any saved information about the book
+   * this card represents.
+   */
   @Input() public book: Book;
 
+  /**
+   * An input from the parent component of type boolean
+   * that represents whether the data in this card's form
+   * fields should be user editable.
+   */
   @Input() public readonly: boolean;
 
+  /**
+   * An output to the parent component of type EventEmitter
+   * that is used to signal that the parent component should
+   * update its list of books.
+   */
   @Output() public remove = new EventEmitter();
 
   constructor(
@@ -48,6 +73,10 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     this.bookForm.get("read").setValue(this.book.read);
   }
 
+  /**
+   * A function to trigger on a form submit button's submittal, to any
+   * change made to the book the card represents.
+   */
   public onSubmit() {
     this.book.title = this.bookForm.get("title").value;
     this.updateAuthors();
@@ -56,14 +85,27 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     this.libraryService.updateBook(this.book).subscribe();
   }
 
+  /**
+   * A function to add the book saved in the "book" variable
+   * to the library database.
+   */
   public addBook() {
     this.libraryService.addBook(this.book).subscribe();
   }
 
+  /**
+   * A function to remove the book daved in the "book" variable 
+   * from the library database, and inform the parent component
+   * to update its list of books.
+   */
   public removeBook() {
     this.libraryService.deleteBook(this.book).subscribe(() => this.remove.emit());
   }
 
+  /**
+   * A function to open a dialog box to change the thumbnail URL
+   * of the component.
+   */
   public openDialog(): void {
 
     if (!this.readonly) {
@@ -78,6 +120,11 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * A function to place the authors saved the "book" variables
+   * "authors" array into the form array "authors", or to place 
+   * an empty author box if no authors exist yet.
+   */
   private representAuthors(): void {
     if (this.book.authors!= null && this.book.authors.length > 0) {
       this.book.authors.forEach(author => {
@@ -89,6 +136,9 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * A function to update the "book" variables "author" array.
+   */
   private updateAuthors(): void {
     if (this.authors.controls.length >= this.book.authors.length) {
       for (let index = 0; index < this.authors.controls.length; index++) {
@@ -114,11 +164,19 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * A function to remove controls from the form array "authors".
+   * 
+   * @param index The index of the control to be removed from the form array.
+   */
   public removeAuthor(index: number): void {
     this.authors.controls.splice(index, 1);
     this.updateAuthors();
   }
 
+  /**
+   * A function to add a blank control to the form array "authors".
+   */
   public addAuthor(): void {
     this.authors.controls.push(this.fb.control(''));
     this.updateAuthors();

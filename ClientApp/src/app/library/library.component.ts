@@ -12,6 +12,10 @@ import { Wrapper } from '../new-book-dialog/wrapper';
 })
 export class LibraryComponent implements OnInit {
 
+  /**
+   * An array of Book objects to contain the books that exist
+   * within the library.
+   */
   public books: Book[]
 
   constructor(
@@ -22,14 +26,27 @@ export class LibraryComponent implements OnInit {
     this.getLibrary()
   }
 
+  /**
+   * A function to retrieve the books saved in the library database, 
+   * and save those books in the books variable.
+   */
   private getLibrary(): void {
     this.libraryService.getLibrary().subscribe(books => this.books = books);
   }
 
+  /**
+   * A function to remove a book from the saved array of books.
+   * 
+   * @param book A Book object to be removed from the saved array of books.
+   */
   public removeBook(book: Book): void {
     this.books = this.books.filter(b => b !== book);
   }
 
+  /**
+   * A function to open a dialog box in order to create a new book to be
+   * added to the book library.
+   */
   public openDialog(): void {
 
     const dialogRef = this.dialog.open(NewBookDialogComponent, {

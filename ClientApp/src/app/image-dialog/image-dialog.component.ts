@@ -10,6 +10,9 @@ import { FormBuilder } from '@angular/forms';
 })
 export class ImageDialogComponent implements OnInit {
 
+  /**
+   * A form to contain the data entered for the thumbnail url
+   */
   public thumbnailForm = this.fb.group({
     thumbnail: ['']
   })
@@ -24,10 +27,18 @@ export class ImageDialogComponent implements OnInit {
   public ngOnInit() {
   }
 
+  /**
+   * A function to exit the dialog box, and cancel any edits 
+   * being made.
+   */
   public onNvmClick(): void {
     this.dialogRef.close(this.data.thumbnail);
   }
 
+  /**
+   * A function ot exit the dialog, and follow through with any
+   * edits being made.
+   */
   public onOkClick(url: string): void {
     this.dialogRef.close(this.thumbnailForm.get("thumbnail").value);
   }

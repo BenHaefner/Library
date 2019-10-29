@@ -13,10 +13,18 @@ import { Author } from '../models/author';
 })
 export class SearchComponent implements OnInit {
 
+  /**
+   * A form to contain the search input, allowing for connection with
+   * the submit button, and the use of the submit function.
+   */
   public searchForm = this.fb.group({
     search: ['']
   })
 
+  /**
+   * An array of objects, each of which contains the data of a book 
+   * returned from the Google Books API.
+   */
   public searched: Object[];
 
   constructor(
@@ -27,7 +35,15 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
   
+  /**
+   * A function to covert data from Google Books to the format accepted
+   * by this programs Web API.
+   * 
+   * @param toConvert Data from Google Bookss API to be converted into
+   *  a book.
+   */
   private convertToBook(toConvert: any): Book {
+    // Creation of book to be returned by the function, handling of null values.
     let book: Book = {
       title: toConvert.title ? toConvert.title : "Unknown",
       authors: toConvert.authors ? this.extractAuthors(toConvert.authors) : null,
@@ -39,14 +55,27 @@ export class SearchComponent implements OnInit {
     return book;
   }
 
+  /**
+   * A function to handle the submitting of a search query.
+   */
   public onSubmit() {
     this.googleService.getSearched(this.searchForm.get("search").value).subscribe(
       searched => this.searched = searched
     );
   }
 
+  /**
+   * A function to convert author data from Google Books into a format accepted
+   * by this programs Web API.  
+   * 
+   * @param toExtract Author data from Google Books API to be converted into
+   * authors, to be inserted into a Book object.
+   */
   private extractAuthors(toExtract: any): Author[] {
+    // Creation of array to be returned
     var list: Array<Author> = [];
+    // Iteration over every name in Google Books author data, placing
+    // all data into an author object, and pusing that object to the list.
     toExtract.forEach(extractedName => {
       let item: Author = {name: extractedName};
       list.push(item);

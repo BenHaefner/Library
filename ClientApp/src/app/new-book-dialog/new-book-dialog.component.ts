@@ -13,6 +13,10 @@ import { Author } from '../models/author';
 })
 export class NewBookDialogComponent implements OnInit {
 
+  /**
+   * A form to contain any data entered for the newly created book. 
+   * Includes a form array so more than one author entry may be made.
+   */
   public bookForm = this.fb.group({
     title: ['', Validators.required],
     authors: this.fb.array([
@@ -23,6 +27,9 @@ export class NewBookDialogComponent implements OnInit {
     read: [false]
   })
 
+  /**
+   * Get method to easily retrieve authors data form array from bookForm.
+   */
   public get authors() {
     return this.bookForm.get('authors') as FormArray;
   }
@@ -37,6 +44,10 @@ export class NewBookDialogComponent implements OnInit {
   public ngOnInit() {
   }
 
+  /**
+   * A function to exit the dialog box, and cancel any edits 
+   * being made.
+   */
   public onNvmClick(): void {
     let wrapper: Wrapper = {
       hasBook: false
@@ -44,6 +55,10 @@ export class NewBookDialogComponent implements OnInit {
     this.dialogRef.close(wrapper);
   }
 
+  /**
+   * A function ot exit the dialog, and follow through with any
+   * edits being made.
+   */
   public onOkClick(): void {
     let authorList: Author[] = [];
 
@@ -72,10 +87,19 @@ export class NewBookDialogComponent implements OnInit {
     this.dialogRef.close(wrapper);
   }
 
+  /**
+   * A function to remove a form control from the form array "authors".
+   * 
+   * @param index The index of the form control to be removed from
+   * the form array
+   */
   public removeAuthor(index: number): void {
     this.authors.controls.splice(index, 1);
   }
 
+  /**
+   * A function to add a form control to the form array "authors".
+   */
   public addAuthor(): void {
     this.authors.controls.push(this.fb.control(''));
   }
