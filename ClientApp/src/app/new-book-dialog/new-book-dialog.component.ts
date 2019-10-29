@@ -4,6 +4,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { LibraryService } from '../library.service';
 import { Book } from '../book';
 import { Wrapper } from './wrapper';
+import { Author } from '../author';
 
 @Component({
   selector: 'app-new-book-dialog',
@@ -29,9 +30,9 @@ export class NewBookDialogComponent implements OnInit {
   constructor(
     private libraryService: LibraryService,
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<NewBookDialogComponent>) { 
-      dialogRef.disableClose = true;
-    }
+    public dialogRef: MatDialogRef<NewBookDialogComponent>) {
+    dialogRef.disableClose = true;
+  }
 
   public ngOnInit() {
   }
@@ -44,9 +45,20 @@ export class NewBookDialogComponent implements OnInit {
   }
 
   public onOkClick(): void {
+    let authorList: Author[] = [];
+
+    this.authors.controls.forEach(author => {
+      if (author.value != null && author.value.length > 0) {
+        let newAuthor: Author = {
+          name: author.value
+        }
+        authorList.push(newAuthor);
+      }
+    })
+
     let book: Book = {
       title: this.bookForm.get("title").value,
-      authors: this.bookForm.get("author").value,
+      authors: authorList,
       isbn: this.bookForm.get("isbn").value,
       thumbnail: this.bookForm.get("thumbnail").value,
       read: false,
