@@ -20,7 +20,7 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     read: [false]
   })
 
-  get authors() {
+  public get authors() {
     return this.bookForm.get('authors') as FormArray;
   }
 
@@ -79,7 +79,7 @@ export class BookDisplayComponent implements OnInit, OnChanges {
   }
 
   private representAuthors(): void {
-    if (this.book.authors.length > 0) {
+    if (this.book.authors!= null && this.book.authors.length > 0) {
       this.book.authors.forEach(author => {
         this.authors.push(this.fb.control(author.name))
       });
@@ -92,31 +92,35 @@ export class BookDisplayComponent implements OnInit, OnChanges {
   private updateAuthors(): void {
     if (this.authors.controls.length >= this.book.authors.length) {
       for (let index = 0; index < this.authors.controls.length; index++) {
-        if (this.book.authors[index] != null) {
+        if (this.book.authors[index] != null && this.authors.controls[index].value.length > 0) {
           this.book.authors[index].name = this.authors.controls[index].value;
-        } else {
+        } else if (this.authors.controls[index].value.length > 0) {
           let newAuthor: Author = {
             name: this.authors.controls[index].value
           };
           this.book.authors.push(newAuthor);
+        } else {
+          this.book.authors.splice(index, 1)
         }
       }
     } else {
       for (let index = 0; index < this.book.authors.length; index++) {
-        if (this.authors.controls[index] != null) {
+        if (this.authors.controls[index] != null && this.authors.controls[index].value.length > 0) {
           this.book.authors[index].name = this.authors.controls[index].value;
-        } else {
+        } else if(this.authors.controls[index] == null) {
           this.book.authors.splice(index, 1)
         }
       }
     }
   }
 
-  public removeAuthor(): void {
-    
+  public removeAuthor(index: number): void {
+    this.authors.controls.splice(index, 1);
+    this.updateAuthors();
   }
 
   public addAuthor(): void {
-    
+    this.authors.controls.push(this.fb.control(''));
+    this.updateAuthors();
   }
 }

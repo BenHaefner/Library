@@ -21,9 +21,11 @@
             <mat-form-field>
               <input matInput placeholder="Author" type="text" [formControlName]="i" [readonly]="readonly">
             </mat-form-field>
-            <button mat-button type="button">Remove</button>
+            <div class="removeAuthor" *ngIf="authors.controls.length!=1">
+              <button mat-button type="button" (click)="removeAuthor(i)">Remove</button>
+            </div>
             <div class="addAuthor" *ngIf="i==authors.controls.length-1">
-              <button mat-button type="button">Add</button>
+              <button mat-button type="button" (click)="addAuthor()">Add</button>
             </div>
           </div>
         </mat-expansion-panel>

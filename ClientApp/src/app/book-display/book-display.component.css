@@ -43,7 +43,12 @@ img {
 }
 
 .addAuthor {
-    float: right;
+    text-align: right;
+    display: inline;
+}
+
+.removeAuthor {
+    display: inline;
 }
 
 mat-form-field {
