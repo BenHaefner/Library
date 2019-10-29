@@ -1,21 +1,21 @@
 .toolbar {
-    background-color: lightskyblue;
     color: white;
     padding: 10px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.toolbar h3 {
-    text-align: center;
+.spacer {
+    flex: 1 1 auto; 
 }
 
 .toolbar nav {
-    text-align: center;
+    text-align: right;
 }
 
-.toolbar nav a{
-    padding-left: 5px;
-    padding-right: 5px;
+.toolbar nav mat-icon{
+    padding: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .toolbar nav a:visited, a:link {
