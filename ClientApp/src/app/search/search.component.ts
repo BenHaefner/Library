@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleService } from '../google.service';
 import { LibraryService } from '../library.service';
-import { Book } from '../book';
+import { Book } from '../models/book';
 import { FormBuilder } from '@angular/forms';
-import { Author } from '../author';
+import { Author } from '../models/author';
 
 
 @Component({

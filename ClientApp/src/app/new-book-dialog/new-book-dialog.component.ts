@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { LibraryService } from '../library.service';
-import { Book } from '../book';
+import { Book } from '../models/book';
 import { Wrapper } from './wrapper';
-import { Author } from '../author';
+import { Author } from '../models/author';
 
 @Component({
   selector: 'app-new-book-dialog',

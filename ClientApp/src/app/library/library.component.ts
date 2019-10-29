@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LibraryService } from '../library.service';
-import { Book } from '../book';
+import { Book } from '../models/book';
 import { MatDialog } from '@angular/material/dialog';
 import { NewBookDialogComponent } from '../new-book-dialog/new-book-dialog.component';
 import { Wrapper } from '../new-book-dialog/wrapper';

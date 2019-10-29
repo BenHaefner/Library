@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
 import { FormBuilder, FormArray, Validators, Form } from '@angular/forms';
-import { Book } from '../book';
+import { Book } from '../models/book';
 import { LibraryService } from '../library.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
-import { Author } from '../author';
+import { Author } from '../models/author';
 
 @Component({
   selector: 'app-book-display',
