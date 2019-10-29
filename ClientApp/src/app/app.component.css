@@ -3,10 +3,13 @@
     color: white;
     padding: 10px;
     font-family: Arial, Helvetica, sans-serif;
-    border-radius: 10px;
 }
 
 .toolbar h3 {
+    text-align: center;
+}
+
+.toolbar nav {
     text-align: center;
 }
 
