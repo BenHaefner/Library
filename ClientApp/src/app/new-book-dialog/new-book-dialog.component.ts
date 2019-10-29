@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { LibraryService } from '../library.service';
 import { Book } from '../models/book';
-import { Wrapper } from './wrapper';
+import { Wrapper } from '../models/wrapper';
 import { Author } from '../models/author';
 
 @Component({

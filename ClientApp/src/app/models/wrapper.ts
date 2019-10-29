@@ -1,4 +1,4 @@
-import { Book } from "../models/book"
+import { Book } from "./book"
 
 export class Wrapper {
     hasBook: boolean;
