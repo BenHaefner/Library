@@ -65,6 +65,7 @@ export class SearchComponent implements OnInit {
    * A function to handle the submitting of a search query.
    */
   public onSubmit() {
+    this.searched = []
     this.showLoader = true;
     this.googleService.getSearched(this.searchForm.get("search").value).subscribe( searched => {
       this.searched = searched;
