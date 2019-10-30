@@ -19,14 +19,14 @@
           </mat-expansion-panel-header>
           <div *ngFor="let author of authors.controls; let i=index">
             <mat-form-field>
-              <input matInput placeholder="Author" type="text" [formControlName]="i" [readonly]="readonly">
+              <input matInput placeholder="Author" type="text" [formControl]="author.get('name')" [readonly]="readonly">
             </mat-form-field>
-            <div class="removeAuthor" *ngIf="authors.controls.length!=1">
+            <div class="removeAuthor" *ngIf="authors.controls.length!=1 && !readonly">
               <button mat-icon-button type="button" (click)="removeAuthor(i)">
                 <mat-icon>remove</mat-icon>
               </button>
             </div>
-            <div class="addAuthor" *ngIf="i==authors.controls.length-1">
+            <div class="addAuthor" *ngIf="i==authors.controls.length-1 && !readonly">
               <button mat-icon-button type="button" (click)="addAuthor()">
                 <mat-icon>add</mat-icon>
               </button>

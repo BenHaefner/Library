@@ -149,13 +149,21 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     if (this.book.authors != null && this.book.authors.length > 0) {
       //Interate over those authors and push them to the authors form array.
       this.book.authors.forEach(author => {
-        this.authors.push(this.fb.control(author.name))
+        const newGroup = this.fb.group({
+          name: [author.name],
+          id: [author.authorID]
+        });
+        this.authors.push(newGroup);
       });
     }
     // In the case there are no authors in the "book" variable, push a blank
     // control to the form array.
     else {
-      this.authors.push(this.fb.control(''))
+      const newGroup = this.fb.group({
+        name: [''],
+        id: null
+      });
+      this.authors.push(newGroup);
     }
   }
 
@@ -168,17 +176,19 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     this.book.authors.forEach(author => {
       // If an author doesnt exist in the new book that did exist in the old book,
       // delete that author.
-      if (!this.authors.controls.some(auth => auth.value == author.name)) {
+      if (!this.authors.controls.some(auth => auth.get("id").value == author.authorID)) {
         this.book.authors = this.book.authors.filter(deleted => deleted != author);
       }
     });
     // Iterate over every author in the updated book.
     this.authors.controls.forEach(authorValue => {
       // Check if the entry is new
-      var existingAuthor = this.book.authors.filter(a => a.name == authorValue.value);
+      var existingAuthor = this.book.authors.filter(a => a.authorID == authorValue.get("id").value);
       // If the entry is new then add it to the array of authors in the book variable.
       if (existingAuthor.length == 0) {
-        let newAuthor: Author = {name: authorValue.value};
+        let newAuthor: Author = {
+          name: authorValue.get("name").value 
+        };
         this.book.authors.push(newAuthor);
       }
     });
@@ -197,7 +207,11 @@ export class BookDisplayComponent implements OnInit, OnChanges {
    * A function to add a blank control to the form array "authors".
    */
   public addAuthor(): void {
-    this.authors.controls.push(this.fb.control(''));
+    const newGroup = this.fb.group({
+      name: [''],
+      id: null
+    });
+    this.authors.push(newGroup);
   }
 
   /**
