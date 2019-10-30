@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleService } from '../google.service';
-import { LibraryService } from '../library.service';
 import { Book } from '../models/book';
 import { FormBuilder } from '@angular/forms';
 import { Author } from '../models/author';
@@ -27,14 +26,19 @@ export class SearchComponent implements OnInit {
    */
   public searched: Object[];
 
+  /**
+   * A function that works as the constructor for SearchComponent.
+   * 
+   * @param fb A FormBuilder to easily build forms.
+   * @param googleService A GoogleService to do http requests for Google Books data.
+   */
   constructor(
     private fb: FormBuilder,
-    private googleService: GoogleService,
-    private libraryService: LibraryService) { }
+    private googleService: GoogleService) { }
 
   ngOnInit() {
   }
-  
+
   /**
    * A function to covert data from Google Books to the format accepted
    * by this programs Web API.
@@ -77,7 +81,7 @@ export class SearchComponent implements OnInit {
     // Iteration over every name in Google Books author data, placing
     // all data into an author object, and pusing that object to the list.
     toExtract.forEach(extractedName => {
-      let item: Author = {name: extractedName};
+      let item: Author = { name: extractedName };
       list.push(item);
     });
     return list;

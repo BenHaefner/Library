@@ -56,6 +56,14 @@ export class BookDisplayComponent implements OnInit, OnChanges {
    */
   @Output() public remover = new EventEmitter();
 
+  /**
+   * A function that works as the constructor for BookDisplayComponent.
+   * 
+   * @param dialog A MatDialog used to open dialogs.
+   * @param fb A FormBuilder to easily build forms.
+   * @param libraryService A LibraryService to do http requests for the Library.
+   * @param snackBar A MatSnackBar used to open snackbars.
+   */
   constructor(
     public dialog: MatDialog,
     private fb: FormBuilder,

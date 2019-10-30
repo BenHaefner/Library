@@ -34,6 +34,13 @@ export class NewBookDialogComponent implements OnInit {
     return this.bookForm.get('authors') as FormArray;
   }
 
+  /**
+   * A function that works as the constructor for NewBookDialogComponent.
+   * 
+   * @param libraryService A LibraryService to do http requests for the Library.
+   * @param fb A FormBuilder to easily build forms.
+   * @param dialogRef A MatDialogReference which references the open dialog.
+   */
   constructor(
     private libraryService: LibraryService,
     private fb: FormBuilder,

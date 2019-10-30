@@ -18,6 +18,12 @@ export class LibraryComponent implements OnInit {
    */
   public books: Book[]
 
+  /**
+   * A function that works as the constructor for LibraryComponent.
+   * 
+   * @param dialog A MatDialog used to open dialogs.
+   * @param libraryService A LibraryService to do http requests for the Library.
+   */
   constructor(
     public dialog: MatDialog,
     private libraryService: LibraryService) { }

@@ -17,6 +17,13 @@ export class ImageDialogComponent implements OnInit {
     thumbnail: ['']
   })
 
+  /**
+   * A function that works as the constructor for ImageDialogComponent.
+   * 
+   * @param fb A FormBuilder to easily build forms.
+   * @param dialogRef A MatDialogReference which references the open dialog. 
+   * @param data An object of type any which holds data passed to the dialog.
+   */
   constructor(
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ImageDialogComponent>,
