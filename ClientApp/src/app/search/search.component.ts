@@ -26,6 +26,9 @@ export class SearchComponent implements OnInit {
    */
   public searched: Object[];
 
+  /**
+   * A boolean variable to indicate whether to show a loading indicator
+   */
   public showLoader: boolean = false;
 
   /**
