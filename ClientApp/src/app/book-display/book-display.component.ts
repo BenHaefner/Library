@@ -104,7 +104,10 @@ export class BookDisplayComponent implements OnInit, OnChanges {
    * to update its list of books.
    */
   public removeBook() {
-    this.libraryService.deleteBook(this.book).subscribe(() => this.remover.emit());
+    this.libraryService.deleteBook(this.book).subscribe(() => {
+      this.remover.emit();
+      this.openSnackBar("Removed", "The book has been removed from the library");
+    });
   }
 
   /**
