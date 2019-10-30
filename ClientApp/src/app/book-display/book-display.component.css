@@ -37,6 +37,10 @@ img:hover{
     margin: 10px 70px 10px 0px;
 }
 
+.remove {
+    float: left;
+}
+
 .save {
     margin: 10px 70px 40px 0px;
     float: right;
@@ -44,6 +48,7 @@ img:hover{
 
 .add {
     margin-top: 10px;
+    float: right;
 }
 
 .addAuthor {
