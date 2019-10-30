@@ -54,7 +54,7 @@ export class BookDisplayComponent implements OnInit, OnChanges {
    * that is used to signal that the parent component should
    * update its list of books.
    */
-  @Output() public updater = new EventEmitter();
+  @Output() public remover = new EventEmitter();
 
   constructor(
     public dialog: MatDialog,
@@ -84,10 +84,8 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     this.updateAuthors();
     this.book.isbn = this.bookForm.get("isbn").value;
     this.book.read = this.bookForm.get("read").value;
-    this.libraryService.updateBook(this.book).subscribe(() =>{
-      this.openSnackBar("Saved", "Your changes have been saved.");
-      this.updater.emit();
-    });
+    this.libraryService.updateBook(this.book).subscribe(() =>
+      this.openSnackBar("Saved", "Your changes have been saved."));
   }
 
   /**
@@ -106,7 +104,7 @@ export class BookDisplayComponent implements OnInit, OnChanges {
    * to update its list of books.
    */
   public removeBook() {
-    this.libraryService.deleteBook(this.book).subscribe(() => this.updater.emit());
+    this.libraryService.deleteBook(this.book).subscribe(() => this.remover.emit());
   }
 
   /**
