@@ -148,7 +148,7 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     }
   }
 
-  // I dont like this solution. Consider changing.
+  // Doesnt necessarily preserve authorIds. Consider changing.
   /**
    * A function to update the "book" variables "author" array.
    */
@@ -180,7 +180,6 @@ export class BookDisplayComponent implements OnInit, OnChanges {
    */
   public removeAuthor(index: number): void {
     this.authors.controls.splice(index, 1);
-    this.updateAuthors();
   }
 
   /**
@@ -188,7 +187,6 @@ export class BookDisplayComponent implements OnInit, OnChanges {
    */
   public addAuthor(): void {
     this.authors.controls.push(this.fb.control(''));
-    this.updateAuthors();
   }
 
   /**
