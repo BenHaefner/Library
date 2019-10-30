@@ -26,6 +26,8 @@ export class SearchComponent implements OnInit {
    */
   public searched: Object[];
 
+  public showLoader: boolean = false;
+
   /**
    * A function that works as the constructor for SearchComponent.
    * 
@@ -63,9 +65,11 @@ export class SearchComponent implements OnInit {
    * A function to handle the submitting of a search query.
    */
   public onSubmit() {
-    this.googleService.getSearched(this.searchForm.get("search").value).subscribe(
-      searched => this.searched = searched
-    );
+    this.showLoader = true;
+    this.googleService.getSearched(this.searchForm.get("search").value).subscribe( searched => {
+      this.searched = searched;
+      this.showLoader=false;
+    });
   }
 
   /**

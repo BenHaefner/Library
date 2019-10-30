@@ -18,8 +18,9 @@ import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 import { NewBookDialogComponent } from './new-book-dialog/new-book-dialog.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-import {MatToolbarModule, MatToolbar} from '@angular/material/toolbar';
+import { MatToolbarModule, MatToolbar} from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatExpansionModule,
     MatIconModule,
     MatToolbarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
