@@ -2,7 +2,7 @@
     <button mat-button (click)="openDialog()">New Book</button>
     <ul class="books">
         <li *ngFor="let book of books">
-            <app-book-display [book]="book" [readonly]=false (remove)="removeBook(book)"></app-book-display>
+            <app-book-display [book]="book" [readonly]=false (remover)="removeBook(book)"></app-book-display>
         </li>
     </ul>
 </div>
