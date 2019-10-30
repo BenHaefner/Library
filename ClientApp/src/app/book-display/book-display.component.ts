@@ -191,6 +191,10 @@ export class BookDisplayComponent implements OnInit, OnChanges {
         };
         this.book.authors.push(newAuthor);
       }
+      // Otherwise update the exising value for name. 
+      else {
+        existingAuthor[0].name = authorValue.get("name").value
+      }
     });
   }
 
