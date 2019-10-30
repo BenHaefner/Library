@@ -54,7 +54,7 @@ export class BookDisplayComponent implements OnInit, OnChanges {
    * that is used to signal that the parent component should
    * update its list of books.
    */
-  @Output() public remove = new EventEmitter();
+  @Output() public updater = new EventEmitter();
 
   constructor(
     public dialog: MatDialog,
@@ -84,9 +84,10 @@ export class BookDisplayComponent implements OnInit, OnChanges {
     this.updateAuthors();
     this.book.isbn = this.bookForm.get("isbn").value;
     this.book.read = this.bookForm.get("read").value;
-    this.libraryService.updateBook(this.book).subscribe(() => 
-    this.openSnackBar("Saved", "Your changes have been saved.")
-    );
+    this.libraryService.updateBook(this.book).subscribe(() =>{
+      this.openSnackBar("Saved", "Your changes have been saved.");
+      this.updater.emit();
+    });
   }
 
   /**
@@ -94,8 +95,8 @@ export class BookDisplayComponent implements OnInit, OnChanges {
    * to the library database.
    */
   public addBook() {
-    this.libraryService.addBook(this.book).subscribe(() => 
-    this.openSnackBar("Added", "The book has been added to the library.")
+    this.libraryService.addBook(this.book).subscribe(() =>
+      this.openSnackBar("Added", "The book has been added to the library.")
     );
   }
 
@@ -105,7 +106,7 @@ export class BookDisplayComponent implements OnInit, OnChanges {
    * to update its list of books.
    */
   public removeBook() {
-    this.libraryService.deleteBook(this.book).subscribe(() => this.remove.emit());
+    this.libraryService.deleteBook(this.book).subscribe(() => this.updater.emit());
   }
 
   /**
@@ -154,49 +155,24 @@ export class BookDisplayComponent implements OnInit, OnChanges {
    * A function to update the "book" variables "author" array.
    */
   private updateAuthors(): void {
-    /* In order to perserve data like authorID and bookID we cant just move all of the 
-    data from the form array to the "book" variables author array. If there are more 
-    books in the "book" variables than the form array, we need to remove those extra entries,
-    and if the opposite is true, we need to add those extra entries. Therefore two different 
-    operations will be done based on which is longer. */
-    if (this.authors.controls.length >= this.book.authors.length) {
-      // Iterate for every control in the form array
-      for (let index = 0; index < this.authors.controls.length; index++) {
-        // If there is a valid entry in the form control, and a corresponding entry in the 
-        // books array, set the book entrys name as the entry in the form control.
-        if (this.book.authors[index] != null && this.authors.controls[index].value.length > 0) {
-          this.book.authors[index].name = this.authors.controls[index].value;
-        }
-        // Otherwise if there is no corresponding entry in the book variable to the control's entry,
-        // but that entry is still valid, then push that form array entry to the book's array 
-        else if (this.authors.controls[index].value.length > 0) {
-          let newAuthor: Author = {
-            name: this.authors.controls[index].value
-          };
-          this.book.authors.push(newAuthor);
-        } 
-        // Otherwise if the entry is invalid but the corresponding entry in the book variable exists,
-        // then get rid of that entry in the book variable.
-        else {
-          this.book.authors.splice(index, 1)
-        }
+    // Iterate over every author in the book variable.
+    this.book.authors.forEach(author => {
+      // If an author doesnt exist in the new book that did exist in the old book,
+      // delete that author.
+      if (!this.authors.controls.some(auth => auth.value == author.name)) {
+        this.book.authors = this.book.authors.filter(deleted => deleted != author);
       }
-    } 
-    else {
-      // Iterate for every control in the book variables author array
-      for (let index = 0; index < this.book.authors.length; index++) {
-        // If the form arrays corresponding entry does not exist or is invalid, set that form array control
-        // values name as the name of the corresponding book variable.
-        if (this.authors.controls[index] != null && this.authors.controls[index].value.length > 0) {
-          this.book.authors[index].name = this.authors.controls[index].value;
-        } 
-        // If we've copied all of the author names from the author controls in the form array,
-        // but there are still items in the book variables author array, remove those extra entries.
-        else if (this.authors.controls[index] == null) {
-          this.book.authors.splice(index, 1)
-        }
+    });
+    // Iterate over every author in the updated book.
+    this.authors.controls.forEach(authorValue => {
+      // Check if the entry is new
+      var existingAuthor = this.book.authors.filter(a => a.name == authorValue.value);
+      // If the entry is new then add it to the array of authors in the book variable.
+      if (existingAuthor.length == 0) {
+        let newAuthor: Author = {name: authorValue.value};
+        this.book.authors.push(newAuthor);
       }
-    }
+    });
   }
 
   /**
@@ -218,7 +194,10 @@ export class BookDisplayComponent implements OnInit, OnChanges {
   }
 
   /**
-   * A function to open a snackbar to give the user some message.
+   * A function to show a snackbar based on strings feed to the function.
+   * 
+   * @param message The heading for the message to appear in the snack bar
+   * @param subheading The subheading for the message to appear in the snack bar
    */
   private openSnackBar(message: string, subheading: string) {
     this.snackBar.open(message, subheading, {
