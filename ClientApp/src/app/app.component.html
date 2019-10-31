@@ -2,8 +2,17 @@
   <mat-icon class="title">book</mat-icon>
   <span>{{title}}</span>
   <span class="spacer"></span>
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="searchBar">
+      <label>
+        <input matInput placeholder="Search" type="text" formControlName="search">
+        <button mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+      </label>
+    </mat-form-field>
+  </form>
   <nav>
-    <mat-icon routerLink="/search">search</mat-icon>
     <mat-icon routerLink="/library">library_books</mat-icon>
   </nav>
 </mat-toolbar>

@@ -14,6 +14,10 @@
     flex: 1 1 auto; 
 }
 
+.searchBar {
+    width: 80%;
+}
+
 .toolbar nav {
     text-align: right;
 }

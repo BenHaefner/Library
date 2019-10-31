@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { Book } from './models/book';
 
 @Injectable({
@@ -9,7 +9,16 @@ import { Book } from './models/book';
 })
 export class GoogleService {
 
+  private searchTerms: string;
+
+  public searchTermsBehavior: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(public http: HttpClient) { }
+
+  public setSearchTerms(terms: string): void{
+    this.searchTerms = terms;
+    this.searchTermsBehavior.next(true);
+  }
 
   /**
    * A function to retrieve data from the Google Books API based upon
@@ -18,9 +27,9 @@ export class GoogleService {
    * @param searchTerms A string which contains the types search terms
    * to query Google Books for.
    */
-  public getSearched(searchTerms: String): Observable<Object[]> {
-    let url = 'https://www.googleapis.com/books/v1/volumes?q=' + searchTerms + '&maxResults=40';
-    if (!searchTerms.trim()) {
+  public getSearched(): Observable<Object[]> {
+    let url = 'https://www.googleapis.com/books/v1/volumes?q=' + this.searchTerms + '&maxResults=40';
+    if (!this.searchTerms.trim()) {
       return of([]);
     }
     return this.http.get<Book[]>(url).pipe(

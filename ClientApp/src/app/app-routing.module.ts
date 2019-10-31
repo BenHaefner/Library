@@ -6,7 +6,7 @@ import { LibraryComponent } from './library/library.component'
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/search', pathMatch: 'full' },
+  { path: '', redirectTo: '/library', pathMatch: 'full' },
   {path: 'search', component: SearchComponent},
   {path: 'library', component: LibraryComponent}
 ];
