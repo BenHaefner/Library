@@ -15,10 +15,14 @@ export class AppComponent {
     search: ['']
   })
 
-  constructor(private router: Router, private googleService: GoogleService, private fb: FormBuilder){}
+  constructor(private router: Router, private googleService: GoogleService, private fb: FormBuilder) { }
 
-  public onSubmit(): void{
-    this.googleService.setSearchTerms(this.searchForm.get('search').value);
-    this.router.navigate(['/search']);
+  public onSubmit(): void {
+    let value: string = this.searchForm.get('search').value;
+    console.log(value);
+    if (value.trim) {
+      this.googleService.setSearchTerms(value);
+      this.router.navigate(['/search']);
+    }
   }
 }
