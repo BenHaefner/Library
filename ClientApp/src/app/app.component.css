@@ -16,6 +16,10 @@
 
 .searchBar {
     width: 80%;
+    border: 1px solid white;
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .toolbar nav {

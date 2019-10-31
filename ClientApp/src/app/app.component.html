@@ -3,14 +3,12 @@
   <span>{{title}}</span>
   <span class="spacer"></span>
   <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-    <mat-form-field class="searchBar">
-      <label>
-        <input matInput placeholder="Search" type="text" formControlName="search">
-        <button mat-icon-button>
-          <mat-icon>search</mat-icon>
-        </button>
-      </label>
-    </mat-form-field>
+    <label>
+      <input matInput class="searchBar" placeholder="Search" type="text" formControlName="search">
+      <button mat-icon-button>
+        <mat-icon>search</mat-icon>
+      </button>
+    </label>
   </form>
   <nav>
     <mat-icon routerLink="/library">library_books</mat-icon>
