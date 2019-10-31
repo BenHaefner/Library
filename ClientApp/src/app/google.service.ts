@@ -9,7 +9,7 @@ import { Book } from './models/book';
 })
 export class GoogleService {
 
-  private searchTerms: string;
+  private searchTerms: string = "";
 
   public searchTermsBehavior: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 

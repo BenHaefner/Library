@@ -12,15 +12,7 @@ import { Author } from '../models/author';
 })
 export class SearchComponent implements OnInit {
 
-  /**
-   * A form to contain the search input, allowing for connection with
-   * the submit button, and the use of the submit function.
-   */
-  public searchForm = this.fb.group({
-    search: ['']
-  })
-
-  /**
+   /**
    * An array of objects, each of which contains the data of a book 
    * returned from the Google Books API.
    */
