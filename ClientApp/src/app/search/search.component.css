@@ -24,6 +24,11 @@ mat-form-field {
     width: 50%;
 }
 
+.message {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 10px;
+}
+
 .loader {
     position: absolute;
     top: 50%;

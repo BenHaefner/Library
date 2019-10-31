@@ -15,7 +15,10 @@ export class AppComponent {
     search: ['']
   })
 
-  constructor(private router: Router, private googleService: GoogleService, private fb: FormBuilder) { }
+  constructor(
+    private router: Router, 
+    private googleService: GoogleService, 
+    private fb: FormBuilder) { }
 
   public onSubmit(): void {
     let value: string = this.searchForm.get('search').value;

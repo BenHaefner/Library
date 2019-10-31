@@ -12,10 +12,12 @@ import { Author } from '../models/author';
 })
 export class SearchComponent implements OnInit {
 
-   /**
-   * An array of objects, each of which contains the data of a book 
-   * returned from the Google Books API.
-   */
+  public message: string;
+
+  /**
+  * An array of objects, each of which contains the data of a book 
+  * returned from the Google Books API.
+  */
   public searched: Object[];
 
   /**
@@ -32,8 +34,10 @@ export class SearchComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private googleService: GoogleService) {
-      this.googleService.searchTermsBehavior.subscribe(() => this.onParentSubmit())
-    }
+    this.googleService.searchTermsBehavior.subscribe(() => {
+      this.onParentSubmit();
+    });
+  }
 
   ngOnInit() {
   }
@@ -63,10 +67,16 @@ export class SearchComponent implements OnInit {
    */
   public onParentSubmit() {
     this.searched = []
+    this.message = "Searching..."
     this.showLoader = true;
-    this.googleService.getSearched().subscribe( searched => {
+    this.googleService.getSearched().subscribe(searched => {
       this.searched = searched;
-      this.showLoader=false;
+      this.showLoader = false;
+      if (searched.length == 0) {
+        this.message = "There doesnt seem to be anything. Use the search bar to search for a book.";
+      } else {
+        this.message = "";
+      }
     });
   }
 
@@ -88,5 +98,4 @@ export class SearchComponent implements OnInit {
     });
     return list;
   }
-
 }
