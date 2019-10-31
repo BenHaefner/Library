@@ -9,12 +9,25 @@ import { Book } from './models/book';
 })
 export class GoogleService {
 
+  /**
+   * A string that represents the input to the search box.
+   */
   private searchTerms = '';
 
+  /**
+   * An event emitter to signal to the child component that search terms have been
+   * updated and the search component should search.
+   */
   public searchTermsBehavior = new EventEmitter();
 
   constructor(public http: HttpClient) { }
 
+  /**
+   * A function to save the value of the search box, and tell the child component to
+   * update.
+   *
+   * @param terms A string representing the value of the search box.
+   */
   public setSearchTerms(terms: string): void {
     this.searchTerms = terms;
     this.searchTermsBehavior.emit();
