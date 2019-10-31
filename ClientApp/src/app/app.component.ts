@@ -19,10 +19,11 @@ export class AppComponent {
 
   public onSubmit(): void {
     let value: string = this.searchForm.get('search').value;
-    console.log(value);
-    if (value.trim) {
+    if (value.trim()) {
       this.googleService.setSearchTerms(value);
       this.router.navigate(['/search']);
+    } else {
+      this.router.navigate(['/library']);
     }
   }
 }

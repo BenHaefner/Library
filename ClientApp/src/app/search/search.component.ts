@@ -32,7 +32,7 @@ export class SearchComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private googleService: GoogleService) {
-      this.googleService.searchTermsBehavior.subscribe(() => this.onSubmit())
+      this.googleService.searchTermsBehavior.subscribe(() => this.onParentSubmit())
     }
 
   ngOnInit() {
@@ -61,7 +61,7 @@ export class SearchComponent implements OnInit {
   /**
    * A function to handle the submitting of a search query.
    */
-  public onSubmit() {
+  public onParentSubmit() {
     this.searched = []
     this.showLoader = true;
     this.googleService.getSearched().subscribe( searched => {
